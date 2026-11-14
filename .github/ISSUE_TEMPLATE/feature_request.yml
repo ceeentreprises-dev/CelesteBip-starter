@@ -1,0 +1,43 @@
+name: "Proposer une amélioration"
+description: "Suggérer une fonctionnalité simple et respectueuse de la vie privée"
+title: "[Amélioration] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de contribuer à CelestBIP Starter ! Décrivez un besoin réel, sans publier de données personnelles.
+        Les propositions ne sont pas des fonctionnalités déjà disponibles.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Quel problème souhaitez-vous résoudre ?
+      description: Expliquez la difficulté rencontrée avec le générateur actuel.
+      placeholder: "Quand je génère une page, je voudrais..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution souhaitée
+      description: Décrivez le comportement attendu, simplement.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Comment vérifier que cela fonctionne ?
+      description: Indiquez une ou deux étapes de test reproductibles.
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Principes du projet
+      options:
+        - label: La proposition fonctionne sans collecte de données et sans appel réseau.
+          required: true
+        - label: Elle ne nécessite ni paiement ni dépendance obligatoire.
+          required: true
+        - label: Elle peut être testée et documentée.
+          required: true
