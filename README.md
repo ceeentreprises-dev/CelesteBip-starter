@@ -32,6 +32,33 @@ python CELESTBIP_MASTER.py serve      # aperçu privé sur http://127.0.0.1:8787
 
 Tests unitaires : `python -m unittest discover -s tests -v`
 
+## Moteur de publication
+
+`MOTEUR_PUBLICATION.py` pousse chaque produit vers la vente. Il donne un score de préparation sur 100, classe les améliorations par points gagnés, puis prépare un kit prêt à téléverser : une archive ZIP reproductible, son empreinte SHA-256, une fiche à copier pour Gumroad, itch.io et TinyPages, et la couverture.
+
+```bash
+python CELESTBIP_MASTER.py build                 # construit le guide (premier produit)
+python MOTEUR_PUBLICATION.py verifier            # score et conseils de chaque produit
+python MOTEUR_PUBLICATION.py preparer            # kits dans release/publication/
+```
+
+Un produit est un dossier `produits/<nom>/` avec un `produit.json` :
+
+```json
+{
+  "titre": "Nom du produit (10 à 80 caractères)",
+  "version": "1.0.0",
+  "prix_chf": 0,
+  "licence": "Ce que l'acheteur a le droit de faire",
+  "description": "Au moins 300 caractères : à qui il sert, ce qu'il apporte.",
+  "fichiers": ["mon-produit.pdf"],
+  "couverture": "couverture.png",
+  "mots_cles": ["trois", "à", "dix"]
+}
+```
+
+Ce qui bloque la préparation : un fichier manquant ou hors du dépôt, un secret dans un fichier texte (IBAN suisse valide, clé privée, clé d'API, mot de passe), un titre, un prix, une licence ou une version absents. À chaque modification poussée sur GitHub, le flux `.github/workflows/publication.yml` relance les tests et le moteur, puis met les kits en téléchargement. Le moteur ne publie rien lui-même : la mise en vente reste votre décision.
+
 ## Ce qui est garanti
 
 - **Aucun appel réseau.** Le script ne contacte aucun serveur.
