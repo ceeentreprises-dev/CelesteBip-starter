@@ -1,3 +1,4 @@
+# Copyright (c) 2026 ceeentreprises-dev. Tous droits réservés : voir LICENCE-MOTEUR.md.
 # À chaque modification : tests, construction du guide, score de chaque produit, kits prêts en téléchargement.
 name: Publication
 on: [push, pull_request]

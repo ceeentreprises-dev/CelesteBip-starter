@@ -10,7 +10,7 @@ USAGE:
 
 Un produit = un dossier produits/<nom>/ avec un produit.json (voir README).
 AUCUN appel réseau, aucune mise en vente automatique : publier reste un geste humain.
-Licence du code : MIT.
+Copyright (c) 2026 ceeentreprises-dev. Tous droits réservés : voir LICENCE-MOTEUR.md (pas la licence MIT du dépôt).
 """
 from __future__ import annotations
 import argparse

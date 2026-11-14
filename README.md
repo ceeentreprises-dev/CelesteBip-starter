@@ -59,6 +59,8 @@ Un produit est un dossier `produits/<nom>/` avec un `produit.json` :
 
 Ce qui bloque la préparation : un fichier manquant ou hors du dépôt, un secret dans un fichier texte (IBAN suisse valide, clé privée, clé d'API, mot de passe), un titre, un prix, une licence ou une version absents. À chaque modification poussée sur GitHub, le flux `.github/workflows/publication.yml` relance les tests et le moteur, puis met les kits en téléchargement. Le moteur ne publie rien lui-même : la mise en vente reste votre décision.
 
+**Licence du moteur : tous droits réservés.** Le moteur n'est pas sous licence MIT : sa copie, sa modification et sa réutilisation sont interdites sans autorisation écrite (voir [LICENCE-MOTEUR.md](LICENCE-MOTEUR.md)).
+
 ## Ce qui est garanti
 
 - **Aucun appel réseau.** Le script ne contacte aucun serveur.
@@ -97,3 +99,5 @@ Le projet est libre et gratuit, et le restera. Si vous le trouvez utile, un sout
 ## Licence
 
 [MIT](LICENSE) : vous pouvez utiliser, copier, modifier et redistribuer ce code, y compris commercialement, en conservant la mention de licence. Fourni « tel quel », sans garantie.
+
+**Exception :** le moteur de publication (`MOTEUR_PUBLICATION.py`, `tests/test_publication.py`, `.github/workflows/publication.yml`) n'est pas sous MIT. Il est sous licence « tous droits réservés » : voir [LICENCE-MOTEUR.md](LICENCE-MOTEUR.md).

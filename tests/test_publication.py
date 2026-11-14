@@ -1,4 +1,5 @@
 """Tests du moteur de publication (bibliothèque standard uniquement).
+Copyright (c) 2026 ceeentreprises-dev. Tous droits réservés : voir LICENCE-MOTEUR.md.
 
 Lancer : python -m unittest discover -s tests -v
 """
