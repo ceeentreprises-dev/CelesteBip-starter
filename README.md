@@ -25,7 +25,7 @@ python CELESTBIP_MASTER.py serve      # aperçu privé sur http://127.0.0.1:8787
 | Commande | Effet |
 |---|---|
 | `build` | Génère `dist/` : `index.html`, `style.css`, `hero.svg`, le guide PDF, `robots.txt` |
-| `test` | Lance 17 contrôles automatiques sur le résultat |
+| `test` | Lance 18 vérifications programmées sur le résultat (à exécuter et confirmer) |
 | `serve` | Aperçu local uniquement (127.0.0.1), jamais exposé sur Internet |
 | `package` | Crée une archive ZIP de prévisualisation (après réussite des tests) |
 | `status` | Affiche l'empreinte SHA-256 de chaque fichier généré |
@@ -61,11 +61,11 @@ LICENSE                  MIT
 
 ## Contribuer
 
-Les suggestions, corrections de texte et améliorations d'accessibilité sont les bienvenues. Voir [CONTRIBUTING.md](CONTRIBUTING.md) et la [feuille de route](docs/ROADMAP.md).
+Les suggestions, corrections de texte et améliorations d'accessibilité sont les bienvenues. Voir [CONTRIBUTING.md](CONTRIBUTING.md), la [feuille de route](docs/ROADMAP.md) et notre [politique de sécurité](SECURITY.md).
 
 ## Soutenir le projet
 
-Le projet est libre et gratuit, et le restera. Si vous le trouvez utile, un soutien volontaire via **GitHub Sponsors** est possible dès que le profil est validé par GitHub. Il n'y a aucun avantage privé, aucun rendement et aucune promesse de résultat. Les contributions servent au temps de travail, à la maintenance et aux améliorations de la feuille de route.
+Le projet est libre et gratuit, et le restera. Si vous le trouvez utile, un soutien volontaire via **GitHub Sponsors** est possible dès que le profil est validé par GitHub. Il n'y a aucun avantage privé, aucun rendement et aucune promesse de résultat. Les contributions serviraient au temps de travail, à la maintenance et aux améliorations de la feuille de route. Le statut du programme doit être confirmé avant toute sollicitation. Voir la [checklist de préparation GitHub Sponsors](docs/SPONSORS_READINESS.md).
 
 ## Licence
 
