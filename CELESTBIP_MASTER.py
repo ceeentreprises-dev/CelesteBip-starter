@@ -28,12 +28,18 @@ ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
 RELEASE = ROOT / "release"
 GUIDE = "installer-celestbip-soi-meme.pdf"
-PUBLIC_FILES = ("index.html", "style.css", "hero.svg", GUIDE, "robots.txt")
+ASSETS = ROOT / "assets"  # visuels statiques (tools/make_assets.py)
+PARTNERS_PDF = "dossier-partenaires.pdf"
+PUBLIC_FILES = ("index.html", "style.css", "hero.svg", GUIDE, "robots.txt", "sitemap.xml",
+                "favicon.svg", "og-image.png", PARTNERS_PDF)
 CONFIG_FILE = ROOT / "support-approved.json"
 
 BRAND = "CelestBIP"
 STRIPE_PREFIX = "https://buy.stripe.com/"
-CONTACT_EMAIL = ""  # adresse publique pour les partenaires ; vide = pas de lien
+SITE_URL = "https://ceeentreprises-dev.github.io/CelesteBip-starter/"
+# Contact public = profil GitHub (identité privée protégée)
+CONTACT_URL = "https://github.com/ceeentreprises-dev/CelesteBip-starter/issues/new?title=Partenariat%20CelestBIP"
+ALLOWED_LINK_PREFIXES = (STRIPE_PREFIX, "https://github.com/ceeentreprises-dev")
 # (titre, prix affiché, description, lien de paiement Stripe ; vide = « bientôt »)
 OFFERS = [
     ("Séance « Démarrer avec l'IA »", "150 CHF",
@@ -121,6 +127,11 @@ HTML_TEMPLATE = '''<!doctype html>
 <meta name="description" content="CelestBIP : une initiative indépendante pour comprendre l'intelligence artificielle, partager des connaissances et favoriser les projets utiles.">
 <meta name="robots" content="index,follow"><meta name="referrer" content="strict-origin-when-cross-origin">
 <title>CelestBIP | Humain × IA</title>
+<link rel="canonical" href="{{SITE_URL}}"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website"><meta property="og:url" content="{{SITE_URL}}">
+<meta property="og:title" content="CelestBIP | L'humain d'abord. L'IA pour apprendre et créer.">
+<meta property="og:description" content="Séances, ateliers et guide gratuit pour utiliser l'IA avec méthode, en Suisse romande.">
+<meta property="og:image" content="{{SITE_URL}}og-image.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
@@ -357,11 +368,9 @@ def offers_html(offers=None) -> str:
 
 def support_html(bank) -> str:
     if bank is None:
-        contact = (f'<a href="mailto:{escape(CONTACT_EMAIL)}">{escape(CONTACT_EMAIL)}</a>'
-                   if re.fullmatch(r"[^@\s\"<>]+@[^@\s\"<>]+\.[a-z]{2,}", CONTACT_EMAIL) else
-                   "la réponse à votre e-mail de réservation")
-        return ('<div class="note"><strong>Devenir partenaire :</strong> écrivez-nous via '
-                f'{contact}. Une proposition d\'une page (action, budget, contreparties) vous sera envoyée. '
+        return ('<div class="note"><strong>Devenir partenaire :</strong> lisez le '
+                f'<a href="{PARTNERS_PDF}" download>dossier partenaires (PDF)</a>, puis '
+                f'<a href="{escape(CONTACT_URL)}" rel="noopener">contactez-nous via GitHub</a>. '
                 'Aucun paiement de sponsoring n\'est encaissé sans accord écrit.</div>')
     iban = escape(bank['iban'])
     beneficiary = escape(bank['beneficiary'])
@@ -375,11 +384,16 @@ def build() -> dict:
     DIST.mkdir(exist_ok=True)
     support = load_approved_support()
     html = (HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support))
-            .replace("{{OFFERS_BLOCK}}", offers_html()))
+            .replace("{{OFFERS_BLOCK}}", offers_html()).replace("{{SITE_URL}}", SITE_URL))
+    for asset in ASSETS.glob("*"):
+        (DIST / asset.name).write_bytes(asset.read_bytes())
+    (DIST / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        f'<url><loc>{SITE_URL}</loc></url></urlset>\n', encoding="utf-8")
     (DIST / "index.html").write_text(html, encoding="utf-8")
     (DIST / "style.css").write_text(CSS, encoding="utf-8")
     (DIST / "hero.svg").write_text(HERO_SVG, encoding="utf-8")
-    (DIST / "robots.txt").write_text("User-agent: *\nAllow: /\n", encoding="utf-8")
+    (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n", encoding="utf-8")
     pdf_engine = make_pdf(DIST / GUIDE)
     summary = {"brand": BRAND, "pages_web": 1, "pdf": GUIDE, "payments_active": bool(support) or STRIPE_PREFIX in html, "pdf_engine": pdf_engine,
                "files": {f: hashlib.sha256((DIST / f).read_bytes()).hexdigest() for f in PUBLIC_FILES}}
@@ -406,8 +420,9 @@ def checks() -> list:
     check('href="#projet"' in site and 'href="#soutenir"' in site, "internal_navigation")
     check("newsletter" not in site.lower(), "no_newsletter")
     check("s'abonner" not in site.lower(), "no_forced_subscription")
-    check(all(u.startswith(STRIPE_PREFIX) for u in re.findall(r'href="(https?://[^"]+)"', site)),
-          "external_links_only_stripe")
+    links = re.findall(r'href="(https?://[^"]+)"', site)
+    check(all(u.startswith(ALLOWED_LINK_PREFIXES) or u == SITE_URL for u in links), "external_links_allowed_only")
+    check(f'href="{PARTNERS_PDF}"' in site, "partners_pdf_link")
     check(site.count('class="card"') == 6, "three_offers_rendered")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
     check("accord écrit" in site or "IBAN" in site, "support_is_clear")
