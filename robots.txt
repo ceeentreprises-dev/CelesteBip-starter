@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ceeentreprises-dev.github.io/CelesteBip-starter/sitemap.xml
