@@ -1,0 +1,10 @@
+{
+  "installCommand": "pip install reportlab || true",
+  "buildCommand": "python3 CELESTBIP_MASTER.py build",
+  "outputDirectory": "dist",
+  "headers": [{"source": "/(.*)", "headers": [
+    {"key": "X-Content-Type-Options", "value": "nosniff"},
+    {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
+    {"key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' data:; style-src 'self'; frame-ancestors 'none'"}
+  ]}]
+}

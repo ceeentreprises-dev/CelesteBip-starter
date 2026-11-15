@@ -25,19 +25,27 @@ python CELESTBIP_MASTER.py serve      # aperçu privé sur http://127.0.0.1:8787
 | Commande | Effet |
 |---|---|
 | `build` | Génère `dist/` : `index.html`, `style.css`, `hero.svg`, le guide PDF, `robots.txt` |
-| `test` | Lance 17 contrôles automatiques sur le résultat |
+| `test` | Lance les contrôles automatiques sur le résultat |
 | `serve` | Aperçu local uniquement (127.0.0.1), jamais exposé sur Internet |
 | `package` | Crée une archive ZIP de prévisualisation (après réussite des tests) |
 | `status` | Affiche l'empreinte SHA-256 de chaque fichier généré |
 
 Tests unitaires : `python -m unittest discover -s tests -v`
 
+## Mise en production
+
+1. **Paiements** : dans Stripe, compléter le profil (nom commercial), créer 3 liens de paiement (150 CHF, 20 CHF, 10 CHF/mois) et coller leurs URL `https://buy.stripe.com/...` dans `OFFERS` de `CELESTBIP_MASTER.py`. Sans lien, l'offre s'affiche « bientôt disponible ».
+2. **Hébergement** : sur vercel.com → *Add New Project* → importer ce dépôt. `vercel.json` contient déjà la commande de build et le dossier `dist/`. Chaque push redéploie.
+3. **Contact sponsors** (facultatif) : renseigner `CONTACT_EMAIL`.
+
+Business plan condensé : [docs/BUSINESS_PLAN.md](docs/BUSINESS_PLAN.md).
+
 ## Ce qui est garanti
 
 - **Aucun appel réseau.** Le script ne contacte aucun serveur.
 - **Aucune collecte de données**, aucun cookie, aucune newsletter, aucun compte.
-- **Aucun paiement** n'est affiché par défaut. Les coordonnées de soutien n'apparaissent que si un fichier local `support-approved.json` (jamais publié, voir `.gitignore`) contient trois validations explicites et un IBAN suisse à la somme de contrôle valide.
-- **Page en `noindex`** : rien n'est indexé par les moteurs de recherche tant que vous ne l'avez pas décidé.
+- **Paiements uniquement via Stripe** : seuls les liens `https://buy.stripe.com/` deviennent des boutons. Les coordonnées bancaires n'apparaissent que si un fichier local `support-approved.json` (jamais publié, voir `.gitignore`) contient trois validations explicites et un IBAN suisse à la somme de contrôle valide.
+- **Page indexable** (production) : `robots.txt` autorise l'indexation.
 - **Aucune dépendance obligatoire.** Si `reportlab` est installé, le PDF est plus soigné ; sinon un PDF de secours est produit avec la bibliothèque standard Python.
 
 ## Ce que ce projet n'est pas
