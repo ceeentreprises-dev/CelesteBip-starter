@@ -35,10 +35,17 @@ class BuildTests(unittest.TestCase):
         cb.DIST, cb.RELEASE, cb.CONFIG_FILE = self._old
         self._tmp.cleanup()
 
-    def test_build_has_no_payment_by_default(self):
-        summary = cb.build()
-        self.assertFalse(summary["payments_active"])
+    def test_build_passes_checks(self):
+        cb.build()
         self.assertEqual(cb.checks(), [])
+
+    def test_only_stripe_links_become_buttons(self):
+        html = cb.offers_html([("A", "1 CHF", "d", "https://buy.stripe.com/abc"),
+                               ("B", "2 CHF", "d", "https://evil.example/pay"),
+                               ("C", "3 CHF", "d", "")])
+        self.assertIn('href="https://buy.stripe.com/abc"', html)
+        self.assertNotIn("evil.example", html)
+        self.assertEqual(html.count("bientôt disponible"), 2)
 
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({

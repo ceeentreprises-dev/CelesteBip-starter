@@ -9,7 +9,7 @@ USAGE:
     python CELESTBIP_MASTER.py package
     python CELESTBIP_MASTER.py status
 
-AUCUN appel réseau, aucun paiement, aucune publication externe automatique.
+AUCUN appel réseau. Les paiements passent uniquement par des liens Stripe (OFFERS).
 Licence du code : MIT, sans garantie. Contenus éditoriaux : CelestBIP.
 """
 from __future__ import annotations
@@ -32,6 +32,19 @@ PUBLIC_FILES = ("index.html", "style.css", "hero.svg", GUIDE, "robots.txt")
 CONFIG_FILE = ROOT / "support-approved.json"
 
 BRAND = "CelestBIP"
+STRIPE_PREFIX = "https://buy.stripe.com/"
+CONTACT_EMAIL = ""  # adresse publique pour les partenaires ; vide = pas de lien
+# (titre, prix affiché, description, lien de paiement Stripe ; vide = « bientôt »)
+OFFERS = [
+    ("Séance « Démarrer avec l'IA »", "150 CHF",
+     "90 minutes en individuel, en ligne : configurer votre assistant, 3 cas concrets de votre quotidien, "
+     "règles de vérification et de confidentialité. Prix pilote, 10 places.", ""),
+    ("Atelier collectif pilote", "20 CHF",
+     "2 heures en petit groupe (max. 15) pour découvrir l'IA, essayer et poser vos questions. "
+     "La date est confirmée par e-mail après réservation.", ""),
+    ("Adhésion de soutien", "10 CHF / mois",
+     "Accès prioritaire aux ateliers, un nouveau guide pratique chaque mois. Résiliable à tout moment.", ""),
+]
 
 CSS = r"""
 :root {color-scheme:dark;--bg:#071321;--panel:#11263b;--line:#2b4a68;
@@ -106,12 +119,12 @@ HERO_SVG = r'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" pr
 HTML_TEMPLATE = '''<!doctype html>
 <html lang="fr-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="CelestBIP : une initiative indépendante pour comprendre l'intelligence artificielle, partager des connaissances et favoriser les projets utiles.">
-<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="index,follow"><meta name="referrer" content="strict-origin-when-cross-origin">
 <title>CelestBIP | Humain × IA</title>
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
-<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
+<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
 <main id="contenu"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
 <div class="wrap hero-content"><p class="eyebrow">Projet indépendant · Humain × IA</p>
 <h1>L'humain d'abord.<br><span class="shine">L'IA pour apprendre et créer.</span></h1>
@@ -122,17 +135,21 @@ HTML_TEMPLATE = '''<!doctype html>
 <div class="grid"><article class="card"><span class="num">01</span><h3>Comprendre</h3><p>Découvrir ce que l'intelligence artificielle peut faire, et connaître ses limites.</p></article>
 <article class="card"><span class="num">02</span><h3>Essayer</h3><p>Apprendre avec de petits exemples accessibles, sans compétence technique obligatoire.</p></article>
 <article class="card"><span class="num">03</span><h3>Partager</h3><p>Mettre des connaissances utiles à disposition du plus grand nombre, gratuitement.</p></article></div></div></section>
+<section id="offres" class="banded"><div class="wrap"><p class="eyebrow">Offres pilotes</p><h2>Apprendre l'IA avec un humain, à votre rythme.</h2>
+<p class="section-intro">Pour les particuliers, indépendants et petites structures de Suisse romande qui veulent utiliser l'IA de façon utile et prudente. Paiement sécurisé par Stripe (carte, TWINT selon disponibilité).</p>
+<div class="grid">{{OFFERS_BLOCK}}</div></div></section>
 <section id="guide" class="banded"><div class="wrap two"><div><p class="eyebrow">Commencer librement</p><h2>Un PDF pour essayer CelestBIP soi-même</h2>
 <p>Le guide propose une méthode simple pour configurer un assistant pédagogique inspiré de CelestBIP dans un service d'IA de votre choix.</p>
 <p class="muted">Il ne prétend pas installer une superintelligence ni fournir une application propriétaire. Il explique comment commencer, vérifier les réponses et protéger ses données.</p>
 <a class="button" href="installer-celestbip-soi-meme.pdf" download>Télécharger gratuitement le PDF</a></div>
 <aside class="note">Libre d'accès. Sans inscription. Sans abonnement obligatoire. Le guide et cette page restent disponibles à tout moment, tant que le site est hébergé.</aside></div></section>
 <section id="soutenir"><div class="wrap"><div class="support"><p class="eyebrow">Soutien volontaire</p><h2>Un soutien libre, pour une idée utile à tous.</h2>
-<p>Si CelestBIP vous parle, vous pourrez soutenir sa construction. Le projet vise une utilité collective, sans avantage privé réservé aux contributeurs. Il n'est ni une association reconnue d'utilité publique, ni une offre d'investissement.</p>
+<p>Vous êtes une entreprise, une commune ou une association ? Financez une action précise : des places d'atelier offertes, un guide gratuit, une séance pour un public qui n'y aurait pas accès. Trois niveaux : soutien matériel (lieu, équipement), partenaire pilote, partenaire principal. Budget et bilan d'impact fournis, sans exclusivité ni contrôle éditorial.</p>
+<p>CelestBIP n'est ni une association reconnue d'utilité publique, ni une offre d'investissement.</p>
 {{SUPPORT_BLOCK}}
 <p class="disclosure">Les fonds éventuels serviront à la préparation, au travail humain nécessaire, au fonctionnement et aux développements du projet. Un budget détaillé sera présenté avant toute collecte. Aucun résultat ni remboursement n'est promis.</p>
 </div></div></section></main>
-<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant en préparation · Aucune collecte activée sur cette page à ce jour.</div></div></footer>
+<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par Stripe, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
 </body></html>'''
 
 GUIDE_SECTIONS = [
@@ -325,11 +342,27 @@ def load_approved_support():
     return {"iban": re.sub(r"\s+", "", c["iban"]).upper(), "beneficiary": beneficiary}
 
 
+def offers_html(offers=None) -> str:
+    """Cartes d'offres ; seul un lien https://buy.stripe.com/ devient un bouton de paiement."""
+    cards = []
+    for i, (title, price, desc, url) in enumerate(offers if offers is not None else OFFERS, 1):
+        if url.startswith(STRIPE_PREFIX) and '"' not in url:
+            cta = f'<a class="button" href="{escape(url)}" rel="noopener">Réserver · {escape(price)}</a>'
+        else:
+            cta = f'<p class="muted"><strong>{escape(price)}</strong> · bientôt disponible</p>'
+        cards.append(f'<article class="card"><span class="num">{i:02d}</span><h3>{escape(title)}</h3>'
+                     f'<p>{escape(desc)}</p><p></p>{cta}</article>')
+    return "\n".join(cards)
+
+
 def support_html(bank) -> str:
     if bank is None:
-        return ('<div class="note"><strong>Contributions non ouvertes pour le moment.</strong> '
-                'Les informations bancaires et le cadre légal seront vérifiés avant d\'activer un '
-                'éventuel soutien. Aucun paiement n\'est demandé aujourd\'hui.</div>')
+        contact = (f'<a href="mailto:{escape(CONTACT_EMAIL)}">{escape(CONTACT_EMAIL)}</a>'
+                   if re.fullmatch(r"[^@\s\"<>]+@[^@\s\"<>]+\.[a-z]{2,}", CONTACT_EMAIL) else
+                   "la réponse à votre e-mail de réservation")
+        return ('<div class="note"><strong>Devenir partenaire :</strong> écrivez-nous via '
+                f'{contact}. Une proposition d\'une page (action, budget, contreparties) vous sera envoyée. '
+                'Aucun paiement de sponsoring n\'est encaissé sans accord écrit.</div>')
     iban = escape(bank['iban'])
     beneficiary = escape(bank['beneficiary'])
     return (f'<div class="note"><strong>Virement bancaire volontaire (Suisse)</strong>'
@@ -341,17 +374,14 @@ def support_html(bank) -> str:
 def build() -> dict:
     DIST.mkdir(exist_ok=True)
     support = load_approved_support()
-    html = HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support))
-    if support:
-        html = html.replace("Aucune collecte activée sur cette page à ce jour.",
-                            "Coordonnées de soutien volontaire affichées après validation.")
+    html = (HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support))
+            .replace("{{OFFERS_BLOCK}}", offers_html()))
     (DIST / "index.html").write_text(html, encoding="utf-8")
     (DIST / "style.css").write_text(CSS, encoding="utf-8")
     (DIST / "hero.svg").write_text(HERO_SVG, encoding="utf-8")
-    (DIST / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
+    (DIST / "robots.txt").write_text("User-agent: *\nAllow: /\n", encoding="utf-8")
     pdf_engine = make_pdf(DIST / GUIDE)
-    summary = {"brand": BRAND, "pages_web": 1, "pdf": GUIDE, "payments_active": bool(support),
-               "public_release_approved": False, "pdf_engine": pdf_engine,
+    summary = {"brand": BRAND, "pages_web": 1, "pdf": GUIDE, "payments_active": bool(support) or STRIPE_PREFIX in html, "pdf_engine": pdf_engine,
                "files": {f: hashlib.sha256((DIST / f).read_bytes()).hexdigest() for f in PUBLIC_FILES}}
     (DIST / "build-manifest.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -372,16 +402,15 @@ def checks() -> list:
     check(len(list(DIST.glob("*.html"))) == 1, "single_web_page")
     check(f'href="{GUIDE}"' in site, "pdf_download_link")
     check((DIST / GUIDE).read_bytes().startswith(b"%PDF-"), "real_pdf_file")
-    check("noindex,nofollow" in site, "no_public_indexation_without_approval")
     check('lang="fr-CH"' in site, "french_locale")
     check('href="#projet"' in site and 'href="#soutenir"' in site, "internal_navigation")
     check("newsletter" not in site.lower(), "no_newsletter")
     check("s'abonner" not in site.lower(), "no_forced_subscription")
-    check("paypal" not in site.lower() and "stripe" not in site.lower(), "no_payment_provider")
+    check(all(u.startswith(STRIPE_PREFIX) for u in re.findall(r'href="(https?://[^"]+)"', site)),
+          "external_links_only_stripe")
+    check(site.count('class="card"') == 6, "three_offers_rendered")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
-    check("Aucun paiement" in site or "IBAN" in site, "support_is_clear")
-    robots = (DIST / "robots.txt").read_text()
-    check("noindex" in robots.lower() or "Disallow" in robots, "robots_gated")
+    check("accord écrit" in site or "IBAN" in site, "support_is_clear")
     for f in PUBLIC_FILES:
         check((DIST / f).stat().st_size > (10 if f == "robots.txt" else 80), f"nonempty_{f}")
     return failures
