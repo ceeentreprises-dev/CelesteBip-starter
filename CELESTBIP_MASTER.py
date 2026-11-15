@@ -39,7 +39,12 @@ STRIPE_PREFIX = "https://buy.stripe.com/"
 SITE_URL = "https://ceeentreprises-dev.github.io/CelesteBip-starter/"
 # Contact public = profil GitHub (identité privée protégée)
 CONTACT_URL = "https://github.com/ceeentreprises-dev/CelesteBip-starter/issues/new?title=Partenariat%20CelestBIP"
-ALLOWED_LINK_PREFIXES = (STRIPE_PREFIX, "https://github.com/ceeentreprises-dev")
+PAYPAL_PREFIX = "https://www.paypal.com/ncp/payment/"
+PAY_PREFIXES = (STRIPE_PREFIX, PAYPAL_PREFIX)
+DONATION_URL = ""  # lien PayPal « Soutien libre » ; vide = bouton masqué
+SPONSORS_URL = "https://github.com/sponsors/ceeentreprises-dev"
+ARTICLES = ROOT / "articles"
+ALLOWED_LINK_PREFIXES = PAY_PREFIXES + ("https://github.com/ceeentreprises-dev", "https://github.com/sponsors/ceeentreprises-dev")
 # (titre, prix affiché, description, lien de paiement Stripe ; vide = « bientôt »)
 OFFERS = [
     ("Séance « Démarrer avec l'IA »", "150 CHF",
@@ -99,6 +104,8 @@ h3 {font-size:1.25rem;margin:.8em 0 .4em} .card p {color:var(--muted);margin:0}
 border-radius:24px;padding:36px}
 .support p {max-width:780px;color:#d4e3ed}
 .disclosure {font-size:.87rem;color:#b2c9db}
+.article {padding:140px 0 72px} .narrow {max-width:760px} .article h1 {font-size:clamp(2rem,4.5vw,3.2rem)}
+.article h2 {font-size:1.45rem;margin-top:1.6em} .article p,.article li {color:#d9e7f2} .card h3 a {text-decoration:none}
 footer {border-top:1px solid var(--line);padding:31px 0 44px;color:#a7bfd0;font-size:.86rem}
 footer .foot {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 @media(max-width:740px){.hero{min-height:670px}.hero-content{padding-top:125px}
@@ -135,7 +142,7 @@ HTML_TEMPLATE = '''<!doctype html>
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
-<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
+<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
 <main id="contenu"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
 <div class="wrap hero-content"><p class="eyebrow">Projet indépendant · Humain × IA</p>
 <h1>L'humain d'abord.<br><span class="shine">L'IA pour apprendre et créer.</span></h1>
@@ -149,6 +156,8 @@ HTML_TEMPLATE = '''<!doctype html>
 <section id="offres" class="banded"><div class="wrap"><p class="eyebrow">Offres pilotes</p><h2>Apprendre l'IA avec un humain, à votre rythme.</h2>
 <p class="section-intro">Pour les particuliers, indépendants et petites structures de Suisse romande qui veulent utiliser l'IA de façon utile et prudente. Paiement sécurisé par Stripe (carte, TWINT selon disponibilité).</p>
 <div class="grid">{{OFFERS_BLOCK}}</div></div></section>
+<section id="articles"><div class="wrap"><p class="eyebrow">Articles</p><h2>Des méthodes simples, à lire en cinq minutes.</h2>
+<div class="grid">{{ARTICLES_BLOCK}}</div></div></section>
 <section id="guide" class="banded"><div class="wrap two"><div><p class="eyebrow">Commencer librement</p><h2>Un PDF pour essayer CelestBIP soi-même</h2>
 <p>Le guide propose une méthode simple pour configurer un assistant pédagogique inspiré de CelestBIP dans un service d'IA de votre choix.</p>
 <p class="muted">Il ne prétend pas installer une superintelligence ni fournir une application propriétaire. Il explique comment commencer, vérifier les réponses et protéger ses données.</p>
@@ -160,7 +169,7 @@ HTML_TEMPLATE = '''<!doctype html>
 {{SUPPORT_BLOCK}}
 <p class="disclosure">Les fonds éventuels serviront à la préparation, au travail humain nécessaire, au fonctionnement et aux développements du projet. Un budget détaillé sera présenté avant toute collecte. Aucun résultat ni remboursement n'est promis.</p>
 </div></div></section></main>
-<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par Stripe, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
+<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par PayPal ou Stripe, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
 </body></html>'''
 
 GUIDE_SECTIONS = [
@@ -354,10 +363,10 @@ def load_approved_support():
 
 
 def offers_html(offers=None) -> str:
-    """Cartes d'offres ; seul un lien https://buy.stripe.com/ devient un bouton de paiement."""
+    """Cartes d'offres ; seul un lien Stripe ou PayPal devient un bouton de paiement."""
     cards = []
     for i, (title, price, desc, url) in enumerate(offers if offers is not None else OFFERS, 1):
-        if url.startswith(STRIPE_PREFIX) and '"' not in url:
+        if url.startswith(PAY_PREFIXES) and '"' not in url:
             cta = f'<a class="button" href="{escape(url)}" rel="noopener">Réserver · {escape(price)}</a>'
         else:
             cta = f'<p class="muted"><strong>{escape(price)}</strong> · bientôt disponible</p>'
@@ -366,15 +375,58 @@ def offers_html(offers=None) -> str:
     return "\n".join(cards)
 
 
+def md_to_html(md: str) -> tuple:
+    """Markdown minimal : # titre, 2e ligne = date · résumé, ## sous-titres, - listes, paragraphes."""
+    lines = md.strip().splitlines()
+    title, meta = lines[0].lstrip("# ").strip(), lines[1].strip()
+    out, in_list = [], False
+    for ln in lines[2:] + [""]:
+        if ln.startswith("- ") != in_list:
+            out.append("<ul>" if not in_list else "</ul>")
+            in_list = not in_list
+        if ln.startswith("## "):
+            out.append(f"<h2>{escape(ln[3:])}</h2>")
+        elif ln.startswith("- "):
+            out.append(f"<li>{escape(ln[2:])}</li>")
+        elif ln.strip():
+            out.append(f"<p>{escape(ln)}</p>")
+    return title, meta, "\n".join(out)
+
+
+def page_html(title: str, desc: str, body: str, path: str) -> str:
+    head = HTML_TEMPLATE.split("<main", 1)[0]
+    head = (head.replace("<title>CelestBIP | Humain × IA</title>", f"<title>{escape(title)} | CelestBIP</title>")
+            .replace('href="#', 'href="index.html#').replace("{{SITE_URL}}", SITE_URL)
+            .replace(f'<link rel="canonical" href="{SITE_URL}">', f'<link rel="canonical" href="{SITE_URL}{path}">'))
+    head = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + escape(desc), head)
+    return (head + f'<main id="contenu"><section class="article"><div class="wrap narrow">{body}'
+            '<p><a class="button" href="index.html#offres">Voir les offres</a> '
+            f'<a class="button secondary" href="{GUIDE}" download>Guide PDF gratuit</a></p></div></section></main>'
+            + HTML_TEMPLATE.split("</main>", 1)[1])
+
+
+def articles() -> list:
+    """[(fichier html, titre, meta, corps)] triés par nom de fichier source."""
+    res = []
+    for md in sorted(ARTICLES.glob("*.md")):
+        title, meta, body = md_to_html(md.read_text(encoding="utf-8"))
+        res.append((f"article-{md.stem}.html", title, meta, body))
+    return res
+
+
 def support_html(bank) -> str:
+    links = f'<a class="button secondary" href="{SPONSORS_URL}" rel="noopener">GitHub Sponsors</a>'
+    if DONATION_URL.startswith(PAYPAL_PREFIX) and '"' not in DONATION_URL:
+        links = f'<a class="button" href="{escape(DONATION_URL)}" rel="noopener">Soutenir via PayPal</a>' + links
+    links = f'<div class="actions">{links}</div>'
     if bank is None:
-        return ('<div class="note"><strong>Devenir partenaire :</strong> lisez le '
+        return links + ('<div class="note"><strong>Devenir partenaire :</strong> lisez le '
                 f'<a href="{PARTNERS_PDF}" download>dossier partenaires (PDF)</a>, puis '
                 f'<a href="{escape(CONTACT_URL)}" rel="noopener">contactez-nous via GitHub</a>. '
                 'Aucun paiement de sponsoring n\'est encaissé sans accord écrit.</div>')
     iban = escape(bank['iban'])
     beneficiary = escape(bank['beneficiary'])
-    return (f'<div class="note"><strong>Virement bancaire volontaire (Suisse)</strong>'
+    return links + (f'<div class="note"><strong>Virement bancaire volontaire (Suisse)</strong>'
             f'<p>IBAN : <code>{iban}</code><br>Bénéficiaire : {beneficiary}</p>'
             '<p>Un ordre permanent peut être configuré et arrêté par le contributeur auprès de sa banque. '
             'Aucun rendement, part ni avantage en échange.</p></div>')
@@ -385,17 +437,30 @@ def build() -> dict:
     support = load_approved_support()
     html = (HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support))
             .replace("{{OFFERS_BLOCK}}", offers_html()).replace("{{SITE_URL}}", SITE_URL))
+    arts = articles()
+    html = html.replace("{{ARTICLES_BLOCK}}", "\n".join(
+        f'<article class="card"><span class="num">{i:02d}</span><h3><a href="{f}">{escape(t)}</a></h3>'
+        f'<p>{escape(m.split("·", 1)[-1].strip())}</p></article>' for i, (f, t, m, _) in enumerate(arts, 1)))
+    for f, t, m, body in arts:
+        (DIST / f).write_text(page_html(t, m.split("·", 1)[-1].strip(),
+                                        f'<p class="eyebrow">{escape(m)}</p><h1>{escape(t)}</h1>{body}', f),
+                              encoding="utf-8")
+    (DIST / "merci.html").write_text(page_html(
+        "Merci", "Paiement reçu.", '<p class="eyebrow">Paiement reçu</p><h1>Merci !</h1>'
+        "<p>Votre paiement est confirmé. Vous recevez un reçu de PayPal ou Stripe par e-mail, et nous vous "
+        "écrivons sous 48 heures pour fixer la suite (date, lien ou lieu).</p>", "merci.html"), encoding="utf-8")
+    pages = [""] + [f for f, *_ in arts]
     for asset in ASSETS.glob("*"):
         (DIST / asset.name).write_bytes(asset.read_bytes())
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        f'<url><loc>{SITE_URL}</loc></url></urlset>\n', encoding="utf-8")
+        + "".join(f"<url><loc>{SITE_URL}{p}</loc></url>" for p in pages) + "</urlset>\n", encoding="utf-8")
     (DIST / "index.html").write_text(html, encoding="utf-8")
     (DIST / "style.css").write_text(CSS, encoding="utf-8")
     (DIST / "hero.svg").write_text(HERO_SVG, encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n", encoding="utf-8")
     pdf_engine = make_pdf(DIST / GUIDE)
-    summary = {"brand": BRAND, "pages_web": 1, "pdf": GUIDE, "payments_active": bool(support) or STRIPE_PREFIX in html, "pdf_engine": pdf_engine,
+    summary = {"brand": BRAND, "pages_web": len(list(DIST.glob("*.html"))), "pdf": GUIDE, "payments_active": bool(support) or any(x in html for x in PAY_PREFIXES), "pdf_engine": pdf_engine,
                "files": {f: hashlib.sha256((DIST / f).read_bytes()).hexdigest() for f in PUBLIC_FILES}}
     (DIST / "build-manifest.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -413,17 +478,19 @@ def checks() -> list:
         build()
     site = (DIST / "index.html").read_text(encoding="utf-8")
     check(site.lower().count("<!doctype html>") == 1, "one_html_document")
-    check(len(list(DIST.glob("*.html"))) == 1, "single_web_page")
+    check(len(list(DIST.glob("*.html"))) == 2 + len(articles()), "expected_pages")
+    check(all(f'href="{f}"' in site for f, *_ in articles()), "articles_linked")
     check(f'href="{GUIDE}"' in site, "pdf_download_link")
     check((DIST / GUIDE).read_bytes().startswith(b"%PDF-"), "real_pdf_file")
     check('lang="fr-CH"' in site, "french_locale")
     check('href="#projet"' in site and 'href="#soutenir"' in site, "internal_navigation")
     check("newsletter" not in site.lower(), "no_newsletter")
     check("s'abonner" not in site.lower(), "no_forced_subscription")
-    links = re.findall(r'href="(https?://[^"]+)"', site)
-    check(all(u.startswith(ALLOWED_LINK_PREFIXES) or u == SITE_URL for u in links), "external_links_allowed_only")
+    links = [u for page in DIST.glob("*.html")
+             for u in re.findall(r'href="(https?://[^"]+)"', page.read_text(encoding="utf-8"))]
+    check(all(u.startswith(ALLOWED_LINK_PREFIXES + (SITE_URL,)) for u in links), "external_links_allowed_only")
     check(f'href="{PARTNERS_PDF}"' in site, "partners_pdf_link")
-    check(site.count('class="card"') == 6, "three_offers_rendered")
+    check(site.count('class="card"') == 6 + len(articles()), "cards_rendered")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
     check("accord écrit" in site or "IBAN" in site, "support_is_clear")
     for f in PUBLIC_FILES:
@@ -439,9 +506,8 @@ def package() -> Path:
     RELEASE.mkdir(exist_ok=True)
     path = RELEASE / "CELESTBIP_SITE_PREVIEW_NON_PUBLIE.zip"
     with ZipFile(path, "w", ZIP_DEFLATED) as z:
-        for name in PUBLIC_FILES:
-            z.write(DIST / name, name)
-        z.write(DIST / "build-manifest.json", "build-manifest.json")
+        for f in DIST.iterdir():
+            z.write(f, f.name)
     return path
 
 

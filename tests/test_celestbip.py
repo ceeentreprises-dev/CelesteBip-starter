@@ -24,6 +24,15 @@ class IbanTests(unittest.TestCase):
         self.assertFalse(cb.valid_swiss_iban("CH93"))
 
 
+class MarkdownTests(unittest.TestCase):
+    def test_md_to_html_escapes_and_lists(self):
+        title, meta, body = cb.md_to_html("# T <x>\n2026 · r\n## S\n- a\n- b\ntexte <b>")
+        self.assertEqual(title, "T <x>")
+        self.assertIn("<h2>S</h2>", body)
+        self.assertIn("<ul>\n<li>a</li>\n<li>b</li>\n</ul>", body)
+        self.assertIn("&lt;b&gt;", body)
+
+
 class BuildTests(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -42,7 +51,9 @@ class BuildTests(unittest.TestCase):
     def test_only_stripe_links_become_buttons(self):
         html = cb.offers_html([("A", "1 CHF", "d", "https://buy.stripe.com/abc"),
                                ("B", "2 CHF", "d", "https://evil.example/pay"),
-                               ("C", "3 CHF", "d", "")])
+                               ("C", "3 CHF", "d", ""),
+                               ("D", "4 CHF", "d", "https://www.paypal.com/ncp/payment/PLB-X")])
+        self.assertIn('href="https://www.paypal.com/ncp/payment/PLB-X"', html)
         self.assertIn('href="https://buy.stripe.com/abc"', html)
         self.assertNotIn("evil.example", html)
         self.assertEqual(html.count("bientôt disponible"), 2)
