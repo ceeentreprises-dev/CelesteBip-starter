@@ -35,8 +35,8 @@ Tests unitaires : `python -m unittest discover -s tests -v`
 ## Mise en production
 
 1. **Paiements** : dans Stripe, compléter le profil (nom commercial), créer 3 liens de paiement (150 CHF, 20 CHF, 10 CHF/mois) et coller leurs URL `https://buy.stripe.com/...` dans `OFFERS` de `CELESTBIP_MASTER.py`. Sans lien, l'offre s'affiche « bientôt disponible ».
-2. **Hébergement** : sur vercel.com → *Add New Project* → importer ce dépôt. `vercel.json` contient déjà la commande de build et le dossier `dist/`. Chaque push redéploie.
-3. **Contact sponsors** (facultatif) : renseigner `CONTACT_EMAIL`.
+2. **Hébergement** : en ligne sur https://ceeentreprises-dev.github.io/CelesteBip-starter/ (GitHub Pages, gratuit). Chaque push sur `main` ou sur la branche de travail teste, reconstruit et republie le site (`.github/workflows/pages.yml`). `vercel.json` reste disponible en alternative.
+3. **Visuels** : `assets/` (image de partage, favicon, dossier partenaires PDF), régénérés par `python tools/make_assets.py`.
 
 Business plan condensé : [docs/BUSINESS_PLAN.md](docs/BUSINESS_PLAN.md).
 
