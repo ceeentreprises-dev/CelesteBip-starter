@@ -108,6 +108,10 @@ HTML_TEMPLATE = '''<!doctype html>
 <meta name="description" content="CelestBIP : une initiative indépendante pour comprendre l'intelligence artificielle, partager des connaissances et favoriser les projets utiles.">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin">
 <title>CelestBIP | Humain × IA</title>
+<meta property="og:type" content="website"><meta property="og:locale" content="fr_CH">
+<meta property="og:title" content="CelestBIP | Humain × IA">
+<meta property="og:description" content="Comprendre l'intelligence artificielle, apprendre et partager. Guide PDF gratuit, sans inscription.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23071321'/%3E%3Ctext x='16' y='23' font-family='sans-serif' font-size='19' font-weight='800' text-anchor='middle' fill='%2329b3f3'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
@@ -235,25 +239,25 @@ def _pdf_with_reportlab(destination: Path) -> None:
 
 def _pdf_without_dependency(destination: Path) -> None:
     """Fallback PDF 3 pages, bibliothèque standard, Helvetica/WinAnsi; texte sélectionnable."""
-    page1 = ["CelestBIP - Comment demarrer soi-meme", "Guide gratuit - Version de travail", "",
-             "CelestBIP propose une methode simple pour explorer l'IA.",
+    page1 = ["CelestBIP - Comment démarrer soi-même", "Guide gratuit - Version de travail", "",
+             "CelestBIP propose une méthode simple pour explorer l'IA.",
              "Ce guide configure un assistant existant, pas une superintelligence.", "",
              "1. Choisissez un service d'IA que vous connaissez.",
              "2. Ouvrez une nouvelle conversation.",
-             "3. Copiez le texte propose sur la page suivante.",
+             "3. Copiez le texte proposé sur la page suivante.",
              "4. Testez-le avec une question simple.", "",
              "Utilisez des outils gratuits lorsque c'est possible.",
-             "Ne confiez aucun secret ni aucune donnee personnelle sensible."]
-    page2 = ["INSTRUCTIONS A COPIER DANS VOTRE ASSISTANT IA", ""]
+             "Ne confiez aucun secret ni aucune donnée personnelle sensible."]
+    page2 = ["INSTRUCTIONS À COPIER DANS VOTRE ASSISTANT IA", ""]
     for ln in STARTER_PROMPT.splitlines():
         page2.extend(textwrap.wrap(ln, width=81, break_long_words=False) or [""])
     page3 = ["PREMIERS ESSAIS", "",
-             "Demandez : Explique-moi une IA generative en cinq phrases.",
+             "Demandez : Explique-moi une IA générative en cinq phrases.",
              "Demandez : Guide-moi pour apprendre un nouveau sujet.", "",
-             "Gardez un esprit critique. Verifiez les informations importantes.",
+             "Gardez un esprit critique. Vérifiez les informations importantes.",
              "L'assistant peut se tromper et ne remplace pas un professionnel.", "",
-             "CelestBIP est un projet independant en preparation.",
-             "Acces libre, aucun compte CelestBIP requis, aucun don obligatoire."]
+             "CelestBIP est un projet indépendant en préparation.",
+             "Accès libre, aucun compte CelestBIP requis, aucun don obligatoire."]
     pages = [page1, page2, page3]
     objs = []
 

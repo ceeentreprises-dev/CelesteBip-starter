@@ -25,7 +25,7 @@ python CELESTBIP_MASTER.py serve      # aperçu privé sur http://127.0.0.1:8787
 | Commande | Effet |
 |---|---|
 | `build` | Génère `dist/` : `index.html`, `style.css`, `hero.svg`, le guide PDF, `robots.txt` |
-| `test` | Lance 17 contrôles automatiques sur le résultat |
+| `test` | Lance 18 contrôles automatiques sur le résultat |
 | `serve` | Aperçu local uniquement (127.0.0.1), jamais exposé sur Internet |
 | `package` | Crée une archive ZIP de prévisualisation (après réussite des tests) |
 | `status` | Affiche l'empreinte SHA-256 de chaque fichier généré |
