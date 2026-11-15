@@ -45,6 +45,8 @@ h3 {font-size:1.25rem;margin:.8em 0 .4em} .card p {color:var(--muted);margin:0}
 border-radius:24px;padding:36px}
 .support p {max-width:780px;color:#d4e3ed}
 .disclosure {font-size:.87rem;color:#b2c9db}
+.article {padding:140px 0 72px} .narrow {max-width:760px} .article h1 {font-size:clamp(2rem,4.5vw,3.2rem)}
+.article h2 {font-size:1.45rem;margin-top:1.6em} .article p,.article li {color:#d9e7f2} .card h3 a {text-decoration:none}
 footer {border-top:1px solid var(--line);padding:31px 0 44px;color:#a7bfd0;font-size:.86rem}
 footer .foot {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 @media(max-width:740px){.hero{min-height:670px}.hero-content{padding-top:125px}
