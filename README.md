@@ -59,6 +59,10 @@ docs/                    architecture et feuille de route
 LICENSE                  MIT
 ```
 
+## Autres projets du dépôt
+
+- [**Carpe Rush**](carpe-rush/) : jeu d'arcade HTML5 pour mobile (carpe, or, bombes, combos, boutique, succès). Code sous licence MIT.
+
 ## Contribuer
 
 Les suggestions, corrections de texte et améliorations d'accessibilité sont les bienvenues. Voir [CONTRIBUTING.md](CONTRIBUTING.md) et la [feuille de route](docs/ROADMAP.md).
