@@ -2,6 +2,8 @@
 
 Version du 17 novembre 2026. Document de référence unique : stratégie, offres, opérations, finances, partenariats, infrastructure, conformité, calendrier. Les documents détaillés de `docs/` restent les sources ; ce dossier les rassemble et ajoute les procédures opérationnelles.
 
+Mise à jour opérationnelle : T1 à T5 sont publiées et le site compte sept articles. Le catalogue Gumroad a été consulté en lecture seule : quatre produits publiés, compteurs de vente à zéro et liste des versements vide. Les priorités des 30 prochains jours, les preuves manquantes et les responsabilités sont actualisées dans `docs/PLAN_ACTION.md`. Les scénarios financiers ci-dessous restent des hypothèses ; ni un lien ni une page de retour ne constituent une preuve de paiement ou de livraison.
+
 ---
 
 ## A. Identité
@@ -53,6 +55,8 @@ Un parcours progressif, du gratuit au payant :
 ## E. Déroulé des prestations (opérationnel)
 
 ### E1. Séance individuelle « Démarrer avec l'IA » (90 min)
+
+Support prêt à utiliser : `docs/SEANCE_PILOTE.md` contient les trois exercices entièrement fictifs, les demandes à formuler, les critères de relecture et le récapitulatif. Sa préparation ne constitue pas une prestation déjà livrée.
 
 **Avant (J-2)**
 - Courriel de confirmation : date, lien de visioconférence, rappel de ne préparer **aucun** document confidentiel.

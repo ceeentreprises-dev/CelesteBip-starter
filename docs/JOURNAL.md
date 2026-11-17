@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | Suite — Catalogue et plan d'exploitation | Quatre produits Gumroad publiés vérifiés en lecture seule, compteurs à zéro et aucun versement retourné ; plan de 30 jours et fiche de séance de 90 minutes préparés, sans achat ni envoi |
 | 2026-11-17 | Suite — Restauration de l'export Carpe Rush | Huit fichiers runtime et licence MIT, sitemap et ZIP récursif ; sauvegardes locales et clavier corrigés ; contrôles, 29 tests unitaires et scénarios Chromium ciblés réussis avant publication |
 | 2026-11-17 | Suite — Page de retour de commande | Message de confirmation automatique retiré : une visite ne prouve pas un paiement ; contrôle du générateur et 23 tests locaux réussis |
 | 2026-11-17 | T5 — Navigation clavier et affichage mobile | Lien d'évitement local et focus corrigés ; huit parcours Chromium sur deux pages et quatre largeurs réussis ; contrôles et 22 tests locaux réussis ; rapport dans `docs/ACCESSIBILITE.md` |
@@ -26,4 +27,4 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 - Ventes : 0
 - Participants à un atelier : 0
 - Partenaires signés : 0
-- Articles rédigés : 7 (publication de l'article 07 à vérifier après déploiement)
+- Articles publiés : 7 (article 07 contrôlé après le déploiement du 17 novembre)

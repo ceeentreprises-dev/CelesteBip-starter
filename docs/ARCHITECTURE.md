@@ -9,9 +9,12 @@ Le générateur tient dans `CELESTBIP_MASTER.py`, sans dépendance obligatoire.
 | `articles/*.md`, `pages/*.md` | Contenu éditorial converti par `md_to_html` / `page_html` en pages HTML |
 | `GUIDE_SECTIONS`, `make_pdf` | Guide PDF gratuit (reportlab si présent, sinon PDF de secours en bibliothèque standard) |
 | `assets/` | Image de partage, favicon, dossier partenaires (générés par `tools/make_assets.py`) |
+| `carpe-rush/`, `GAME_FILES`, `export_game` | Jeu existant sous MIT, export limité aux huit fichiers runtime et à la licence ; progression locale sans service externe |
 | `valid_swiss_iban`, `load_approved_support` | Affichage optionnel d'un IBAN, seulement avec trois validations locales dans `support-approved.json` (non versionné) |
 | `build` / `checks` | Génère `dist/` puis vérifie : pages attendues, liens externes autorisés, offres rendues, liens de paiement présents, fichiers non vides |
 | `package`, `serve`, `status` | Archive de prévisualisation, aperçu local (127.0.0.1), empreintes SHA-256 |
+
+L'archive inclut les sous-dossiers publics. Le jeu est contrôlé par une liste explicite : les outils, captures, README et fichiers privés ne sont pas exportés. La page `merci.html` ne confirme aucun paiement ; elle invite à vérifier le reçu auprès du prestataire. Les liens de paiement présents dans un manifeste n'établissent pas une vente ni un versement.
 
 ## Publication
 `.github/workflows/pages.yml` : sur push, installe reportlab, lance les contrôles et les tests unitaires, construit `dist/` puis publie sur la branche `gh-pages` (GitHub Pages). `vercel.json` est conservé comme alternative.

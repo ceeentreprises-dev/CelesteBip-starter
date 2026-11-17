@@ -20,12 +20,13 @@ Règle : un message personnalisé vaut mieux que dix messages copiés. Jamais d'
 | Courriel pro | « Gagner du temps sur vos courriels sans sonner comme un robot 👇 » |
 | Aînés | « Trois usages simples et sûrs de l'IA pour nos parents et grands-parents 👇 » |
 | Résumer sans fuite | « Résumer un document avec l'IA, oui. Laisser fuiter des données, non. La méthode 👇 » |
+| Données personnelles | « Avant d'envoyer un document à une IA, quels détails peut-on retirer ? Des gestes simples pour limiter ce que l'on partage 👇 » |
 
 Terminer chaque publication par le lien de l'article.
 
 ## 3. Message direct à un prospect (personnaliser les crochets)
 
-> Bonjour [Prénom], j'ai vu que [observation précise : votre activité, une publication]. J'accompagne des [indépendants / associations] de la région à utiliser l'IA pour [gagner du temps sur X] sans risque pour leurs données. Est-ce un sujet pour vous en ce moment ? Si oui, je vous propose 15 minutes d'échange, sans engagement. Mon guide gratuit : [lien].
+> Bonjour [Prénom], j'ai vu que [observation précise : votre activité, une publication]. J'accompagne des [indépendants / associations] de la région à utiliser l'IA pour [tâche à préciser], avec une méthode de vérification et des précautions sur les données partagées. Est-ce un sujet pour vous en ce moment ? Si oui, je vous propose 15 minutes d'échange, sans engagement. Mon guide gratuit : [lien].
 
 Relance unique à J+7 : « Je me permets de vous relancer une fois, puis je n'insisterai pas. »
 
@@ -41,7 +42,9 @@ Voir le modèle dans `docs/BUSINESS_PLAN.md` et joindre le dossier : [lien]/doss
 
 > Merci pour votre confiance ! Accepteriez-vous de partager en deux phrases ce que la séance vous a apporté ? Avec votre accord, je l'afficherai sur le site (prénom et initiale seulement).
 
-## 7. Tableau de suivi (à recopier dans un tableur)
+## 7. Tableau de suivi (à reprendre dans le registre privé existant)
 
-| Date | Nom / organisation | Canal | Message envoyé | Réponse | Prochaine action | Montant encaissé |
-|---|---|---|---|---|---|---|
+Ne pas renseigner de contacts, commandes ou justificatifs dans ce dépôt public. Utiliser une référence interne et conserver les coordonnées et preuves uniquement dans le registre privé. Une vente, une livraison et un versement sont trois états différents.
+
+| Date | Référence interne | Canal | État du contact | Réponse | Prochaine action | Paiement vérifié | Livraison réalisée | Versement vérifié |
+|---|---|---|---|---|---|---|---|---|

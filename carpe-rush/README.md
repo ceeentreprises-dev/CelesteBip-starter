@@ -14,7 +14,7 @@ Les 💎 de la boutique sont gagnés en jouant. Ils n'ont aucune valeur réelle 
 
 ## Sauvegarde et publication
 
-Le record, les améliorations, les succès et le réglage sonore restent dans le stockage local du navigateur, sous la clé `carpe-rush-save-v1`. Aucune donnée n'est envoyée à un serveur. Effacer le stockage du navigateur efface la progression ; si ce stockage est bloqué, le jeu fonctionne sans sauvegarde. Les valeurs restaurées sont validées et les niveaux d'amélioration restent bornés.
+Le record, les améliorations, les succès et le réglage sonore restent dans le stockage local du navigateur, sous la clé `carpe-rush-save-v1`. Le code du jeu n'envoie pas votre progression à un serveur. Effacer le stockage du navigateur efface la progression ; si ce stockage est bloqué, le jeu fonctionne sans sauvegarde. Les valeurs restaurées sont validées et les niveaux d'amélioration restent bornés.
 
 Le générateur copie uniquement `index.html`, `css/style.css`, les six scripts `js/` et `LICENSE` vers `dist/carpe-rush/`. Les captures, outils de simulation, fichiers privés et ce README ne sont pas publiés. Le raccourci d'URL non borné `ff` de l'ancienne version a été retiré.
 

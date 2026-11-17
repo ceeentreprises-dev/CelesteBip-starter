@@ -8,7 +8,7 @@ Ce fichier est lu automatiquement par les agents de code. Il décrit le projet, 
 - **Site statique** généré par un seul script Python (`CELESTBIP_MASTER.py`), publié sur GitHub Pages : https://ceeentreprises-dev.github.io/CelesteBip-starter/
 - **Revenus** : séances (150 CHF), ateliers (20 CHF/place), adhésion (10 CHF/mois), soutien libre ; paiements via liens Gumroad. Sponsoring d'ateliers offerts.
 - **Langue** : tout le contenu public est en **français (fr-CH)**, ton clair, sobre, sans jargon.
-- **État au 17 nov. 2026** : site et paiements en ligne, 6 articles, 0 vente, 0 partenaire signé.
+- **État vérifié au 17 nov. 2026** : site en ligne, 7 articles et 4 produits Gumroad publiés. Leurs compteurs consultés indiquent 0 vente ; aucun versement ne figure dans la liste retournée. Cela ne valide pas un versement futur ni une prestation livrée. Aucun partenaire signé n'est annoncé.
 
 ## 2. Règles absolues (ne jamais enfreindre)
 
@@ -56,9 +56,11 @@ Le convertisseur Markdown est volontairement minimal (`md_to_html`) : titres de 
 - Accessibilité : contrastes suffisants, `alt` sur les images porteuses de sens, navigation clavier, `lang="fr-CH"`.
 - Après chaque changement visible (nouvelle offre, nouvel article, partenaire signé), ajouter une ligne datée à `docs/JOURNAL.md` et mettre à jour `CHANGELOG.md` (section « Non publié »).
 
-## 6. Tâches prêtes à exécuter (par priorité)
+## 6. Tâches et état d'avancement
 
 Chaque tâche liste ses critères d'acceptation. Les tâches marquées **[HUMAIN]** demandent une action du propriétaire et ne doivent pas être simulées.
+
+T1 à T5 ont été réalisées, testées et publiées le 17 novembre 2026 sur la branche de travail. La suite opérationnelle et ses critères de validation sont dans `docs/PLAN_ACTION.md` ; ne pas recommencer les tâches terminées sans régression constatée.
 
 ### T1 — Offre « Atelier PME » (900 CHF)
 - Ajouter une 4ᵉ entrée à `OFFERS` : « Atelier PME sur site (3 h, jusqu'à 12 personnes) », « 900 CHF », description factuelle, URL vide (« bientôt disponible ») tant que le lien de paiement n'existe pas.
@@ -74,7 +76,7 @@ Chaque tâche liste ses critères d'acceptation. Les tâches marquées **[HUMAIN
 - Étendre `md_to_html` pour la syntaxe `[texte](url)` en n'acceptant que les URL relatives ou celles de `ALLOWED_LINK_PREFIXES` ; échapper tout le reste.
 - Tests : lien autorisé rendu, lien externe non autorisé rendu en texte brut, injection `"` ou `javascript:` neutralisée.
 
-### T4 — Article hebdomadaire n°7 et suivants
+### T4 — Article n°7 terminé ; suivants à planifier
 - Sujets prévus : « IA et données personnelles au quotidien », « Préparer un rendez-vous administratif avec l'IA », « 10 demandes utiles pour indépendants ».
 - Format `articles/NN-slug.md`, 300 à 500 mots, conseils concrets et prudents, aucune affirmation juridique précise sans source officielle.
 - Critères : article listé sur l'accueil, page générée, contrôles verts, ligne ajoutée au journal.

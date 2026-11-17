@@ -16,6 +16,7 @@ CelestBIP est une initiative indépendante, née en novembre 2026. Elle propose 
 - un **guide PDF gratuit** pour démarrer avec un assistant IA ;
 - des **articles** pratiques (vérifier une réponse, protéger ses données, bien formuler une demande…) ;
 - des **séances et ateliers** à tarif pilote, et des ateliers offerts financés par des partenaires.
+- un **jeu d'arcade gratuit**, [Carpe Rush](https://ceeentreprises-dev.github.io/CelesteBip-starter/carpe-rush/), avec progression sauvegardée dans le navigateur et monnaie virtuelle sans valeur réelle.
 
 Le dépôt contient tout le site et son générateur : on peut le lire en entier, le copier et le réutiliser (licence MIT).
 
@@ -24,18 +25,22 @@ Le dépôt contient tout le site et son générateur : on peut le lire en entier
 | | |
 |---|---|
 | Site en ligne, publication automatique | ✅ |
-| Offres et paiements (Gumroad) | ✅ ouverts, 0 vente à ce jour |
-| Articles publiés | 6 |
+| Catalogue Gumroad | 4 produits publiés ; 0 vente dans leurs compteurs consultés le 17 novembre ; versement futur non validé |
+| Atelier PME | 900 CHF, bientôt disponible, sans lien de paiement |
+| Articles publiés | 7 |
 | Partenaires signés | 0 — plan prêt, voir [PARTENARIATS](docs/PARTENARIATS.md) |
 
 Le détail daté est dans le [journal d'activité](docs/JOURNAL.md). Nous n'affichons que des faits vérifiables.
+
+Une publication ou une page de retour ne prouve pas un encaissement. La confirmation du prestataire, la réservation et la livraison restent des étapes distinctes.
 
 ## Documentation
 
 | Document | Contenu |
 |---|---|
 | [BUSINESS_PLAN](docs/BUSINESS_PLAN.md) | Offres, prix, validation, sponsoring |
-| [PLAN_ACTION](docs/PLAN_ACTION.md) | Financement et calendrier sur 90 jours |
+| [PLAN_ACTION](docs/PLAN_ACTION.md) | État vérifié, suite sur 30 jours, vente, livraison et responsabilités |
+| [SEANCE_PILOTE](docs/SEANCE_PILOTE.md) | Déroulé de 90 minutes, trois exercices fictifs et récapitulatif participant |
 | [MARCHE](docs/MARCHE.md) | Analyse de marché, concurrence, alternatives |
 | [PARTENARIATS](docs/PARTENARIATS.md) | Modèles de collaboration, cibles, messages |
 | [KIT_DIFFUSION](docs/KIT_DIFFUSION.md) | Textes prêts à publier |
