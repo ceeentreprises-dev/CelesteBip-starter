@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04212f">
+  <meta name="description" content="Carpe Rush : jeu d'arcade HTML5. Guide ta carpe, attrape l'or, évite les bombes.">
+  <title>Carpe Rush</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <canvas id="game" aria-label="Zone de jeu Carpe Rush"></canvas>
+
+    <div id="topbar" class="hidden">
+      <button id="btn-pause" class="icon" aria-label="Pause">❚❚</button>
+    </div>
+
+    <section id="screen-menu" class="screen">
+      <h1>Carpe<br><span>Rush</span></h1>
+      <p class="tag">Attrape l'or. Évite les bombes.</p>
+      <p class="best">Record : <b id="menu-best">0</b> · <b id="menu-gems">0</b> 💎</p>
+      <button id="btn-play" class="big">Jouer</button>
+      <div class="row">
+        <button id="btn-shop">Boutique</button>
+        <button id="btn-ach">Succès</button>
+      </div>
+      <div class="row">
+        <button id="btn-mute" class="small">Son : oui</button>
+        <button id="btn-help" class="small">Comment jouer</button>
+      </div>
+    </section>
+
+    <section id="screen-help" class="screen hidden">
+      <h2>Comment jouer</h2>
+      <ul class="help">
+        <li>Glisse le doigt, la souris ou utilise les flèches pour déplacer la carpe.</li>
+        <li><span class="dot gold"></span> Or : des points. Enchaîne-les pour monter le combo et le multiplicateur (jusqu'à x5).</li>
+        <li><span class="dot bomb"></span> Bombe : tu perds une vie et ton combo.</li>
+        <li><span class="dot shield"></span> Bouclier · <span class="dot magnet"></span> Aimant · <span class="dot slow"></span> Ralenti · <span class="dot heart"></span> Vie</li>
+        <li>Laisser tomber de l'or casse le combo.</li>
+        <li>Chaque partie rapporte des 💎 à dépenser dans la boutique.</li>
+        <li>P ou Échap : pause.</li>
+      </ul>
+      <button class="back">Retour</button>
+    </section>
+
+    <section id="screen-shop" class="screen hidden">
+      <h2>Boutique</h2>
+      <p class="best"><b id="shop-gems">0</b> 💎</p>
+      <div id="shop-list" class="list"></div>
+      <button class="back">Retour</button>
+    </section>
+
+    <section id="screen-ach" class="screen hidden">
+      <h2>Succès</h2>
+      <div id="ach-list" class="list"></div>
+      <button class="back">Retour</button>
+    </section>
+
+    <section id="screen-pause" class="screen hidden">
+      <h2>Pause</h2>
+      <button id="btn-resume" class="big">Reprendre</button>
+      <button id="btn-quit">Quitter la partie</button>
+    </section>
+
+    <section id="screen-over" class="screen hidden">
+      <h2>Partie terminée</h2>
+      <p class="score-big" id="over-score">0</p>
+      <p id="over-record" class="record hidden">Nouveau record !</p>
+      <p class="stats" id="over-stats"></p>
+      <p class="best">+<b id="over-gems">0</b> 💎</p>
+      <div id="over-ach"></div>
+      <button id="btn-again" class="big">Rejouer</button>
+      <div class="row">
+        <button id="btn-over-shop">Boutique</button>
+        <button id="btn-menu">Menu</button>
+      </div>
+    </section>
+
+    <div id="toast" class="hidden"></div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

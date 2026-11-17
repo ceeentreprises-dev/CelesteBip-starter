@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | Suite — Restauration de l'export Carpe Rush | Huit fichiers runtime et licence MIT, sitemap et ZIP récursif ; sauvegardes locales et clavier corrigés ; contrôles, 29 tests unitaires et scénarios Chromium ciblés réussis avant publication |
 | 2026-11-17 | Suite — Page de retour de commande | Message de confirmation automatique retiré : une visite ne prouve pas un paiement ; contrôle du générateur et 23 tests locaux réussis |
 | 2026-11-17 | T5 — Navigation clavier et affichage mobile | Lien d'évitement local et focus corrigés ; huit parcours Chromium sur deux pages et quatre largeurs réussis ; contrôles et 22 tests locaux réussis ; rapport dans `docs/ACCESSIBILITE.md` |
 | 2026-11-17 | T4 — Article 07, IA et données personnelles au quotidien | Conseils prudents, article listé et généré localement ; contrôles et 20 tests locaux réussis |

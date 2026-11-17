@@ -20,6 +20,7 @@ import json
 from pathlib import Path
 import re
 import posixpath
+import shutil
 from urllib.parse import unquote, urlsplit
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import sys
@@ -34,6 +35,11 @@ ASSETS = ROOT / "assets"  # visuels statiques (tools/make_assets.py)
 PARTNERS_PDF = "dossier-partenaires.pdf"
 PUBLIC_FILES = ("index.html", "style.css", "hero.svg", GUIDE, "robots.txt", "sitemap.xml",
                 "favicon.svg", "og-image.png", PARTNERS_PDF)
+GAME = ROOT / "carpe-rush"
+# Export explicite : ni README, outils, captures, ni fichier privé ajouté au dossier.
+GAME_FILES = ("index.html", "css/style.css", "js/config.js", "js/storage.js",
+              "js/audio.js", "js/game.js", "js/render.js", "js/main.js", "LICENSE")
+PUBLIC_GAME_FILES = tuple("carpe-rush/" + name for name in GAME_FILES)
 CONFIG_FILE = ROOT / "support-approved.json"
 
 BRAND = "CelestBIP"
@@ -181,7 +187,7 @@ HTML_TEMPLATE = '''<!doctype html>
 {{SUPPORT_BLOCK}}
 <p class="disclosure">Les fonds éventuels serviront à la préparation, au travail humain nécessaire, au fonctionnement et aux développements du projet. Un budget détaillé sera présenté avant toute collecte. Aucun résultat ni remboursement n'est promis.</p>
 </div></div></section></main>
-<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par Gumroad, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
+<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div><a href="carpe-rush/">Jouer gratuitement à Carpe Rush</a></div><div>Projet indépendant · Paiements traités par Gumroad, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
 </body></html>'''
 
 GUIDE_SECTIONS = [
@@ -486,6 +492,25 @@ def support_html(bank) -> str:
             'Aucun rendement, part ni avantage en échange.</p></div>')
 
 
+def export_game():
+    """Copier uniquement le runtime audité, sans conserver d'anciens fichiers."""
+    if GAME.is_symlink():
+        raise ValueError("Le dossier du jeu ne peut pas être un lien symbolique")
+    sources = [(name, GAME / name) for name in GAME_FILES]
+    for name, source in sources:
+        if source.is_symlink() or not source.is_file() or not source.resolve().is_relative_to(GAME.resolve()):
+            raise ValueError("Fichier du jeu absent ou non autorisé : " + name)
+    target = DIST / "carpe-rush"
+    if target.is_symlink():
+        raise ValueError("La destination du jeu ne peut pas être un lien symbolique")
+    if target.exists():
+        shutil.rmtree(target)
+    for name, source in sources:
+        destination = target / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(source.read_bytes())
+
+
 def build() -> dict:
     DIST.mkdir(exist_ok=True)
     support = load_approved_support()
@@ -514,7 +539,7 @@ def build() -> dict:
             t, m.split("·", 1)[-1].strip(),
             f'<p class="eyebrow">{escape(m)}</p><h1>{escape(t)}</h1>{body}', f"{md.stem}.html"), encoding="utf-8")
         static.append(f"{md.stem}.html")
-    pages = [""] + [f for f, *_ in arts] + static
+    pages = [""] + [f for f, *_ in arts] + static + ["carpe-rush/"]
     for asset in ASSETS.glob("*"):
         (DIST / asset.name).write_bytes(asset.read_bytes())
     (DIST / "sitemap.xml").write_text(
@@ -524,9 +549,10 @@ def build() -> dict:
     (DIST / "style.css").write_text(CSS, encoding="utf-8")
     (DIST / "hero.svg").write_text(HERO_SVG, encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n", encoding="utf-8")
+    export_game()
     pdf_engine = make_pdf(DIST / GUIDE)
-    summary = {"brand": BRAND, "pages_web": len(list(DIST.glob("*.html"))), "pdf": GUIDE, "payments_active": bool(support) or any(x in html for x in PAY_PREFIXES), "pdf_engine": pdf_engine,
-               "files": {f: hashlib.sha256((DIST / f).read_bytes()).hexdigest() for f in PUBLIC_FILES}}
+    summary = {"brand": BRAND, "pages_web": len(list(DIST.rglob("*.html"))), "pdf": GUIDE, "payments_active": bool(support) or any(x in html for x in PAY_PREFIXES), "pdf_engine": pdf_engine,
+               "files": {f: hashlib.sha256((DIST / f).read_bytes()).hexdigest() for f in PUBLIC_FILES + PUBLIC_GAME_FILES}}
     (DIST / "build-manifest.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return summary
@@ -561,6 +587,11 @@ def checks() -> list:
     check(site.count(GUMROAD_PREFIX) >= 3, "pay_links_present")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
     check("accord écrit" in site or "IBAN" in site, "support_is_clear")
+    check('href="carpe-rush/"' in site, "game_linked")
+    check(SITE_URL + "carpe-rush/" in (DIST / "sitemap.xml").read_text(encoding="utf-8"), "game_in_sitemap")
+    check(all((DIST / f).is_file() for f in PUBLIC_GAME_FILES), "game_runtime_exported")
+    check({f.relative_to(DIST / "carpe-rush").as_posix() for f in (DIST / "carpe-rush").rglob("*") if f.is_file()}
+          == set(GAME_FILES), "game_export_allowlist")
     for f in PUBLIC_FILES:
         check((DIST / f).stat().st_size > (10 if f == "robots.txt" else 80), f"nonempty_{f}")
     return failures
@@ -574,8 +605,9 @@ def package() -> Path:
     RELEASE.mkdir(exist_ok=True)
     path = RELEASE / "CELESTBIP_SITE_PREVIEW_NON_PUBLIE.zip"
     with ZipFile(path, "w", ZIP_DEFLATED) as z:
-        for f in DIST.iterdir():
-            z.write(f, f.name)
+        for f in sorted(DIST.rglob("*")):
+            if f.is_file():
+                z.write(f, f.relative_to(DIST).as_posix())
     return path
 
 

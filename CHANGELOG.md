@@ -10,6 +10,7 @@
 - Générateur initial : une page et un guide PDF gratuit.
 
 ## Non publié
+- Suite — Rendre Carpe Rush exportable et archivable avec sa licence, préserver le zoom, contrôler les sauvegardes locales et respecter les boutons au clavier.
 - Suite — Remplacer la confirmation implicite de paiement sur la page de retour par une vérification auprès du prestataire.
 - T5 — Corriger le lien d'évitement des pages internes, les liens de navigation mobile et leur focus ; documenter les contrôles d'accessibilité ciblés.
 - T4 — Ajouter l'article 07 « IA et données personnelles au quotidien », avec des conseils pratiques sans affirmation juridique précise.
