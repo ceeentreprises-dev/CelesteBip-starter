@@ -78,7 +78,9 @@ header {position:absolute;inset:0 0 auto 0;z-index:10}
 .nav {display:flex;align-items:center;justify-content:space-between;min-height:82px;gap:1rem}
 .logo {font-weight:800;text-decoration:none;font-size:1.65rem;letter-spacing:-.06em}
 .logo span,.shine {color:var(--blue)} .nav small {font-size:.73rem;letter-spacing:.19em;color:#c1d2e3}
-nav a {text-decoration:none;padding:.5rem .75rem;font-size:.91rem;color:var(--muted)}
+nav {display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.15rem}
+nav a {display:inline-flex;align-items:center;white-space:nowrap;min-height:44px;
+text-decoration:none;padding:.5rem .75rem;font-size:.91rem;color:var(--muted)}
 nav a:hover {color:white}
 .hero {position:relative;min-height:720px;display:flex;align-items:center;
 background:radial-gradient(circle at 76% 25%,#285279 0,transparent 42%),#061323;overflow:hidden}
@@ -119,6 +121,9 @@ footer .foot {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .hero::after{background:linear-gradient(90deg,rgba(3,14,28,.95),rgba(3,14,28,.72)),
 linear-gradient(0deg,#071321,transparent 40%)}.grid,.two{grid-template-columns:1fr}
 nav a{padding:.25rem}.support{padding:24px}section{padding:48px 0}}
+@media(max-width:960px){header{position:relative;background:var(--bg)}
+.nav{flex-direction:column;align-items:flex-start;gap:.5rem;padding:1rem 0}
+nav{justify-content:flex-start}.hero-content{padding:64px 0}.article{padding-top:64px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 """
 
@@ -150,7 +155,7 @@ HTML_TEMPLATE = '''<!doctype html>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
 <nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="a-propos.html">À propos</a><a href="partenaires.html">Partenaires</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
-<main id="contenu"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
+<main id="contenu" tabindex="-1"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
 <div class="wrap hero-content"><p class="eyebrow">Projet indépendant · Humain × IA</p>
 <h1>L'humain d'abord.<br><span class="shine">L'IA pour apprendre et créer.</span></h1>
 <p class="lead">CelestBIP explore une idée simple : rendre les connaissances et les possibilités de l'IA plus faciles à comprendre, à essayer et à partager.</p>
@@ -443,10 +448,12 @@ def md_to_html(md: str) -> tuple:
 def page_html(title: str, desc: str, body: str, path: str) -> str:
     head = HTML_TEMPLATE.split("<main", 1)[0]
     head = (head.replace("<title>CelestBIP | Humain × IA</title>", f"<title>{escape(title)} | CelestBIP</title>")
-            .replace('href="#', 'href="index.html#').replace("{{SITE_URL}}", SITE_URL)
+            .replace("{{SITE_URL}}", SITE_URL)
             .replace(f'<link rel="canonical" href="{SITE_URL}">', f'<link rel="canonical" href="{SITE_URL}{path}">'))
+    # Le lien d'évitement reste dans la page ; les rubriques du menu vont à l'accueil.
+    head = re.sub(r'href="#(?!contenu")', 'href="index.html#', head)
     head = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + escape(desc), head)
-    return (head + f'<main id="contenu"><section class="article"><div class="wrap narrow">{body}'
+    return (head + f'<main id="contenu" tabindex="-1"><section class="article"><div class="wrap narrow">{body}'
             '<p><a class="button" href="index.html#offres">Voir les offres</a> '
             f'<a class="button secondary" href="{GUIDE}" download>Guide PDF gratuit</a></p></div></section></main>'
             + HTML_TEMPLATE.split("</main>", 1)[1])
@@ -537,6 +544,8 @@ def checks() -> list:
     check(f'href="{GUIDE}"' in site, "pdf_download_link")
     check((DIST / GUIDE).read_bytes().startswith(b"%PDF-"), "real_pdf_file")
     check('lang="fr-CH"' in site, "french_locale")
+    check(all('class="skip" href="#contenu"' in page.read_text(encoding="utf-8")
+              for page in DIST.glob("*.html")), "local_skip_links")
     check('href="#projet"' in site and 'href="#soutenir"' in site, "internal_navigation")
     check("newsletter" not in site.lower(), "no_newsletter")
     check("s'abonner" not in site.lower(), "no_forced_subscription")

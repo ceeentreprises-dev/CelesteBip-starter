@@ -6,6 +6,7 @@ import json
 import sys
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -93,6 +94,31 @@ class BuildTests(unittest.TestCase):
         self.assertIn(f'href="{path}"', (cb.DIST / "index.html").read_text())
         self.assertIn("<h1>IA et données personnelles au quotidien</h1>",
                       (cb.DIST / path).read_text(encoding="utf-8"))
+
+    def test_skip_link_stays_in_each_page_with_a_keyboard_target(self):
+        class Elements(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.elements = []
+            def handle_starttag(self, tag, attrs):
+                self.elements.append((tag, dict(attrs)))
+        cb.build()
+        for path in cb.DIST.glob("*.html"):
+            with self.subTest(page=path.name):
+                parser = Elements()
+                parser.feed(path.read_text(encoding="utf-8"))
+                skip = next(a for tag, a in parser.elements if tag == "a" and a.get("class") == "skip")
+                target = next(a for tag, a in parser.elements if tag == "main" and a.get("id") == skip["href"].lstrip("#"))
+                self.assertEqual(skip["href"], "#contenu")
+                self.assertEqual(target["tabindex"], "-1")
+                if path.name != "index.html":
+                    self.assertTrue(any(a.get("href") == "index.html#projet" for tag, a in parser.elements if tag == "a"))
+
+    def test_checks_detect_a_skip_link_that_leaves_the_page(self):
+        cb.build()
+        article = cb.DIST / "article-07-donnees-personnelles.html"
+        article.write_text(article.read_text().replace('href="#contenu"', 'href="index.html#contenu"'), encoding="utf-8")
+        self.assertIn("local_skip_links", cb.checks())
 
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({
