@@ -45,6 +45,7 @@ PAY_PREFIXES = (STRIPE_PREFIX, PAYPAL_PREFIX, GUMROAD_PREFIX)
 DONATION_URL = GUMROAD_PREFIX + "beiymlv"  # « Soutien libre » ; vide = bouton masqué
 SPONSORS_URL = "https://github.com/sponsors/ceeentreprises-dev"
 ARTICLES = ROOT / "articles"
+PAGES = ROOT / "pages"  # pages éditoriales fixes (à propos…)
 ALLOWED_LINK_PREFIXES = PAY_PREFIXES + ("https://github.com/ceeentreprises-dev", "https://github.com/sponsors/ceeentreprises-dev")
 # (titre, prix affiché, description, lien de paiement Stripe ; vide = « bientôt »)
 OFFERS = [
@@ -143,7 +144,7 @@ HTML_TEMPLATE = '''<!doctype html>
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
-<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
+<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="a-propos.html">À propos</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
 <main id="contenu"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
 <div class="wrap hero-content"><p class="eyebrow">Projet indépendant · Humain × IA</p>
 <h1>L'humain d'abord.<br><span class="shine">L'IA pour apprendre et créer.</span></h1>
@@ -450,7 +451,14 @@ def build() -> dict:
         "Merci", "Paiement reçu.", '<p class="eyebrow">Paiement reçu</p><h1>Merci !</h1>'
         "<p>Votre paiement est confirmé. Vous recevez un reçu de PayPal ou Stripe par e-mail, et nous vous "
         "écrivons sous 48 heures pour fixer la suite (date, lien ou lieu).</p>", "merci.html"), encoding="utf-8")
-    pages = [""] + [f for f, *_ in arts]
+    static = []
+    for md in sorted(PAGES.glob("*.md")):
+        t, m, body = md_to_html(md.read_text(encoding="utf-8"))
+        (DIST / f"{md.stem}.html").write_text(page_html(
+            t, m.split("·", 1)[-1].strip(),
+            f'<p class="eyebrow">{escape(m)}</p><h1>{escape(t)}</h1>{body}', f"{md.stem}.html"), encoding="utf-8")
+        static.append(f"{md.stem}.html")
+    pages = [""] + [f for f, *_ in arts] + static
     for asset in ASSETS.glob("*"):
         (DIST / asset.name).write_bytes(asset.read_bytes())
     (DIST / "sitemap.xml").write_text(
@@ -479,7 +487,7 @@ def checks() -> list:
         build()
     site = (DIST / "index.html").read_text(encoding="utf-8")
     check(site.lower().count("<!doctype html>") == 1, "one_html_document")
-    check(len(list(DIST.glob("*.html"))) == 2 + len(articles()), "expected_pages")
+    check(len(list(DIST.glob("*.html"))) == 2 + len(articles()) + len(list(PAGES.glob("*.md"))), "expected_pages")
     check(all(f'href="{f}"' in site for f, *_ in articles()), "articles_linked")
     check(f'href="{GUIDE}"' in site, "pdf_download_link")
     check((DIST / GUIDE).read_bytes().startswith(b"%PDF-"), "real_pdf_file")

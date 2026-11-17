@@ -8,3 +8,7 @@
 
 ## v0.1.0
 - Générateur initial : une page et un guide PDF gratuit.
+
+## Non publié
+- Page « À propos », journal d'activité, plan de partenariats, analyse de marché.
+- Liens de paiement Gumroad, 6 articles.

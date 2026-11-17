@@ -1,20 +1,23 @@
 # Architecture
 
-Tout tient dans `CELESTBIP_MASTER.py`.
+Le générateur tient dans `CELESTBIP_MASTER.py`, sans dépendance obligatoire.
 
-| Bloc | Rôle |
+| Élément | Rôle |
 |---|---|
-| `CSS`, `HERO_SVG`, `HTML_TEMPLATE` | Contenu de la page unique, sans dépendance externe |
-| `GUIDE_SECTIONS`, `STARTER_PROMPT` | Texte du guide PDF et instructions à copier dans un assistant IA |
-| `make_pdf` | Génère le PDF avec `reportlab` si présent, sinon avec un générateur de secours (bibliothèque standard) |
-| `valid_swiss_iban` | Contrôle de somme de contrôle uniquement (aucun accès bancaire) |
-| `load_approved_support` | Active l'affichage d'un soutien seulement si trois validations explicites sont présentes dans `support-approved.json` |
-| `build` / `checks` | Génère `dist/` puis vérifie 17 règles (une page, un PDF, pas de newsletter, pas de fournisseur de paiement, `noindex`, etc.) |
-| `package` | Archive de prévisualisation, produite uniquement si les contrôles passent |
-| `serve` | Aperçu local lié à 127.0.0.1 |
+| `CSS`, `HERO_SVG`, `HTML_TEMPLATE` | Page d'accueil, sans ressource externe |
+| `OFFERS`, `DONATION_URL` | Offres et liens de paiement ; seuls les préfixes de `PAY_PREFIXES` deviennent des boutons |
+| `articles/*.md`, `pages/*.md` | Contenu éditorial converti par `md_to_html` / `page_html` en pages HTML |
+| `GUIDE_SECTIONS`, `make_pdf` | Guide PDF gratuit (reportlab si présent, sinon PDF de secours en bibliothèque standard) |
+| `assets/` | Image de partage, favicon, dossier partenaires (générés par `tools/make_assets.py`) |
+| `valid_swiss_iban`, `load_approved_support` | Affichage optionnel d'un IBAN, seulement avec trois validations locales dans `support-approved.json` (non versionné) |
+| `build` / `checks` | Génère `dist/` puis vérifie : pages attendues, liens externes autorisés, offres rendues, liens de paiement présents, fichiers non vides |
+| `package`, `serve`, `status` | Archive de prévisualisation, aperçu local (127.0.0.1), empreintes SHA-256 |
+
+## Publication
+`.github/workflows/pages.yml` : sur push, installe reportlab, lance les contrôles et les tests unitaires, construit `dist/` puis publie sur la branche `gh-pages` (GitHub Pages). `vercel.json` est conservé comme alternative.
 
 ## Choix de conception
-
-- **Un fichier** pour que n'importe qui puisse tout relire.
-- **Zéro réseau** pour garantir la confidentialité.
-- **Refus par défaut** : tant que les validations ne sont pas données, aucun paiement n'est affiché.
+- **Un fichier** lisible en entier.
+- **Zéro réseau à la génération** : aucun appel sortant.
+- **Liste blanche de liens** : un lien externe non prévu fait échouer les contrôles.
+- **Refus par défaut** : l'IBAN n'est jamais affiché sans validations explicites.
