@@ -12,7 +12,9 @@ header {position:absolute;inset:0 0 auto 0;z-index:10}
 .nav {display:flex;align-items:center;justify-content:space-between;min-height:82px;gap:1rem}
 .logo {font-weight:800;text-decoration:none;font-size:1.65rem;letter-spacing:-.06em}
 .logo span,.shine {color:var(--blue)} .nav small {font-size:.73rem;letter-spacing:.19em;color:#c1d2e3}
-nav a {text-decoration:none;padding:.5rem .75rem;font-size:.91rem;color:var(--muted)}
+nav {display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.15rem}
+nav a {display:inline-flex;align-items:center;white-space:nowrap;min-height:44px;
+text-decoration:none;padding:.5rem .75rem;font-size:.91rem;color:var(--muted)}
 nav a:hover {color:white}
 .hero {position:relative;min-height:720px;display:flex;align-items:center;
 background:radial-gradient(circle at 76% 25%,#285279 0,transparent 42%),#061323;overflow:hidden}
@@ -53,4 +55,7 @@ footer .foot {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .hero::after{background:linear-gradient(90deg,rgba(3,14,28,.95),rgba(3,14,28,.72)),
 linear-gradient(0deg,#071321,transparent 40%)}.grid,.two{grid-template-columns:1fr}
 nav a{padding:.25rem}.support{padding:24px}section{padding:48px 0}}
+@media(max-width:960px){header{position:relative;background:var(--bg)}
+.nav{flex-direction:column;align-items:flex-start;gap:.5rem;padding:1rem 0}
+nav{justify-content:flex-start}.hero-content{padding:64px 0}.article{padding-top:64px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
