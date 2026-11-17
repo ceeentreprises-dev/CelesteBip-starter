@@ -83,6 +83,17 @@ class BuildTests(unittest.TestCase):
                          "https://github.com/ceeentreprises-dev-evil/repo"), encoding="utf-8")
         self.assertIn("external_links_allowed_only", cb.checks())
 
+    def test_privacy_article_is_listed_and_generated(self):
+        source = cb.ARTICLES / "07-donnees-personnelles.md"
+        words = " ".join(source.read_text().splitlines()[2:]).split()
+        self.assertGreaterEqual(len(words), 300)
+        self.assertLessEqual(len(words), 500)
+        cb.build()
+        path = "article-07-donnees-personnelles.html"
+        self.assertIn(f'href="{path}"', (cb.DIST / "index.html").read_text())
+        self.assertIn("<h1>IA et données personnelles au quotidien</h1>",
+                      (cb.DIST / path).read_text(encoding="utf-8"))
+
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({
             "iban": "CH93 0076 2011 6238 5295 7", "beneficiary": "Test",

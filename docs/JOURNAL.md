@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | T4 — Article 07, IA et données personnelles au quotidien | Conseils prudents, article listé et généré localement ; contrôles et 20 tests locaux réussis |
 | 2026-11-17 | T3 — Liens Markdown limités aux chemins relatifs et à la liste blanche | Échappement et refus des injections, domaines similaires et traversées vérifiés ; contrôles et 19 tests locaux réussis |
 | 2026-11-17 | T2 — Page publique Partenaires | Trois modèles proposés, navigation et sitemap vérifiés ; aucun partenaire annoncé comme signé ; contrôles et 11 tests locaux réussis |
 | 2026-11-17 | T1 — Offre Atelier PME, 3 h sur site et jusqu'à 12 personnes | Carte à 900 CHF, bientôt disponible et sans lien de paiement ; contrôles et 10 tests locaux réussis |
@@ -22,4 +23,4 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 - Ventes : 0
 - Participants à un atelier : 0
 - Partenaires signés : 0
-- Articles publiés : 6
+- Articles rédigés : 7 (publication de l'article 07 à vérifier après déploiement)

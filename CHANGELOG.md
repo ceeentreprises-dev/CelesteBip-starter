@@ -10,6 +10,7 @@
 - Générateur initial : une page et un guide PDF gratuit.
 
 ## Non publié
+- T4 — Ajouter l'article 07 « IA et données personnelles au quotidien », avec des conseils pratiques sans affirmation juridique précise.
 - T3 — Rendre les liens Markdown autorisés et laisser les liens refusés en texte échappé ; durcir le contrôle global des liens.
 - T2 — Créer la page Partenaires, ses trois modèles de collaboration et son accès dans la navigation.
 - T1 — Ajouter l'Atelier PME à 900 CHF, bientôt disponible sans paiement, et adapter le contrôle des cartes.
