@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | T3 — Liens Markdown limités aux chemins relatifs et à la liste blanche | Échappement et refus des injections, domaines similaires et traversées vérifiés ; contrôles et 19 tests locaux réussis |
 | 2026-11-17 | T2 — Page publique Partenaires | Trois modèles proposés, navigation et sitemap vérifiés ; aucun partenaire annoncé comme signé ; contrôles et 11 tests locaux réussis |
 | 2026-11-17 | T1 — Offre Atelier PME, 3 h sur site et jusqu'à 12 personnes | Carte à 900 CHF, bientôt disponible et sans lien de paiement ; contrôles et 10 tests locaux réussis |
 | 2026-11-15 | Site mis en ligne (GitHub Pages), publication automatique à chaque push | En ligne, tests automatiques OK |

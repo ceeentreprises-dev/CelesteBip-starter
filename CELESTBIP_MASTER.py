@@ -19,6 +19,8 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import posixpath
+from urllib.parse import unquote, urlsplit
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import sys
 import textwrap
@@ -380,8 +382,48 @@ def offers_html(offers=None) -> str:
     return "\n".join(cards)
 
 
+def markdown_link_allowed(url: str) -> bool:
+    """Autorise un chemin local ou une URL de la liste blanche, sans ambiguïté."""
+    if (not url or url.startswith("//") or
+            any(c.isspace() or ord(c) < 32 or 127 <= ord(c) <= 159 or
+                c in "\\\"'" for c in url)):
+        return False
+    try:
+        target = urlsplit(url)
+    except ValueError:
+        return False
+    if not target.scheme:
+        return not target.netloc
+    # Comparer l'autorité entière interdit aussi les identifiants et ports
+    # ajoutés ; normaliser le chemin ferme les contournements /../ et %2e%2e.
+    path = posixpath.normpath(unquote(target.path))
+    for prefix in ALLOWED_LINK_PREFIXES + (SITE_URL,):
+        allowed = urlsplit(prefix)
+        if (target.scheme, target.netloc.lower()) != (allowed.scheme, allowed.netloc.lower()):
+            continue
+        base_path = posixpath.normpath(unquote(allowed.path)).rstrip("/")
+        if not base_path or path == base_path or path.startswith(base_path + "/"):
+            return True
+    return False
+
+
+def markdown_inline(text: str) -> str:
+    """Liens [texte](url) uniquement ; tout autre texte reste échappé."""
+    out, cursor = [], 0
+    for match in re.finditer(r"\[([^\[\]\n]+)\]\(([^()\n]*)\)", text):
+        out.append(escape(text[cursor:match.start()]))
+        label, url = match.groups()
+        if markdown_link_allowed(url):
+            out.append(f'<a href="{escape(url, quote=True)}">{escape(label)}</a>')
+        else:
+            out.append(escape(match.group()))
+        cursor = match.end()
+    out.append(escape(text[cursor:]))
+    return "".join(out)
+
+
 def md_to_html(md: str) -> tuple:
-    """Markdown minimal : # titre, 2e ligne = date · résumé, ## sous-titres, - listes, paragraphes."""
+    """Markdown minimal : titre, résumé, ## sous-titres, listes, paragraphes et liens."""
     lines = md.strip().splitlines()
     title, meta = lines[0].lstrip("# ").strip(), lines[1].strip()
     out, in_list = [], False
@@ -390,11 +432,11 @@ def md_to_html(md: str) -> tuple:
             out.append("<ul>" if not in_list else "</ul>")
             in_list = not in_list
         if ln.startswith("## "):
-            out.append(f"<h2>{escape(ln[3:])}</h2>")
+            out.append(f"<h2>{markdown_inline(ln[3:])}</h2>")
         elif ln.startswith("- "):
-            out.append(f"<li>{escape(ln[2:])}</li>")
+            out.append(f"<li>{markdown_inline(ln[2:])}</li>")
         elif ln.strip():
-            out.append(f"<p>{escape(ln)}</p>")
+            out.append(f"<p>{markdown_inline(ln)}</p>")
     return title, meta, "\n".join(out)
 
 
@@ -500,7 +542,7 @@ def checks() -> list:
     check("s'abonner" not in site.lower(), "no_forced_subscription")
     links = [u for page in DIST.glob("*.html")
              for u in re.findall(r'href="(https?://[^"]+)"', page.read_text(encoding="utf-8"))]
-    check(all(u.startswith(ALLOWED_LINK_PREFIXES + (SITE_URL,)) for u in links), "external_links_allowed_only")
+    check(all(markdown_link_allowed(u) for u in links), "external_links_allowed_only")
     check(f'href="{PARTNERS_PDF}"' in site, "partners_pdf_link")
     check(site.count('class="card"') == 3 + len(OFFERS) + len(articles()), "cards_rendered")
     check(site.count(GUMROAD_PREFIX) >= 3, "pay_links_present")

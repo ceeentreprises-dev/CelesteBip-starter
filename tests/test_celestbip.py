@@ -76,6 +76,13 @@ class BuildTests(unittest.TestCase):
         self.assertIn('href="partenaires.html"', (cb.DIST / "index.html").read_text())
         self.assertIn(cb.SITE_URL + "partenaires.html", (cb.DIST / "sitemap.xml").read_text())
 
+    def test_checks_refuse_a_similar_unapproved_github_owner(self):
+        cb.build()
+        index = cb.DIST / "index.html"
+        index.write_text(index.read_text().replace(cb.CONTACT_URL,
+                         "https://github.com/ceeentreprises-dev-evil/repo"), encoding="utf-8")
+        self.assertIn("external_links_allowed_only", cb.checks())
+
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({
             "iban": "CH93 0076 2011 6238 5295 7", "beneficiary": "Test",

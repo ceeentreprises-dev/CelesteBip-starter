@@ -46,7 +46,7 @@ python tools/make_assets.py             # régénère assets/ (reportlab + playw
 | `tests/test_celestbip.py` | Tests unitaires |
 | `docs/` | Dossier d'entreprise (voir `DOSSIER_COMPLET.md`) |
 
-Le convertisseur Markdown est volontairement minimal (`md_to_html`) : pas de gras, pas de liens, pas de titres de niveau 3. Ne pas utiliser d'autres syntaxes dans `articles/` et `pages/`, ou étendre `md_to_html` avec un test.
+Le convertisseur Markdown est volontairement minimal (`md_to_html`) : titres de niveau 1 et 2, listes, paragraphes et liens `[texte](url)` relatifs ou autorisés par la liste blanche. Pas de gras ni de titres de niveau 3. Ne pas utiliser d'autres syntaxes dans `articles/` et `pages/`, ou étendre `md_to_html` avec un test. Un lien refusé reste du texte échappé.
 
 ## 5. Conventions
 
