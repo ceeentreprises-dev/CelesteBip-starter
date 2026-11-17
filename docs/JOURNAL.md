@@ -13,6 +13,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 | 2026-11-17 | Alternatives étudiées (Moltbook, paiements entre agents) | Écartées, motifs dans `docs/MARCHE.md` |
 | 2026-11-17 | Plan de partenariats : 3 modèles, 8 cibles, messages prêts | `docs/PARTENARIATS.md` ; aucun contact envoyé à ce jour |
 | 2026-11-17 | Page « À propos » et journal d'activité | Publiés |
+| 2026-11-17 | Dossier complet A à Z et AGENTS.md (instructions pour agents de code) | `docs/DOSSIER_COMPLET.md`, `AGENTS.md` |
 
 ## Chiffres au 17 novembre 2026
 - Ventes : 0

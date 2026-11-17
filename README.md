@@ -40,6 +40,8 @@ Le détail daté est dans le [journal d'activité](docs/JOURNAL.md). Nous n'affi
 | [PARTENARIATS](docs/PARTENARIATS.md) | Modèles de collaboration, cibles, messages |
 | [KIT_DIFFUSION](docs/KIT_DIFFUSION.md) | Textes prêts à publier |
 | [JOURNAL](docs/JOURNAL.md) | Historique d'activité |
+| [DOSSIER_COMPLET](docs/DOSSIER_COMPLET.md) | Tout le projet de A à Z, procédures comprises |
+| [AGENTS](AGENTS.md) | Instructions et tâches pour les agents de code (Codex, Claude Code) |
 | [ARCHITECTURE](docs/ARCHITECTURE.md) | Fonctionnement du code |
 
 ## Développement
