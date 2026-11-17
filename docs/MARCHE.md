@@ -28,3 +28,9 @@ Prix PME à tester sur 3 prospects avant de le publier. Ne rien promettre de plu
 
 ## Sources
 swiss-export.com (étude PME 2026), handelsverband.swiss (PME Digital Pulse 2026), kmu.admin.ch, satw.ch, maijin.ch (prix 2026), outilia.ch, agenceia.ch.
+
+## Alternatives étudiées (17 nov. 2026)
+- **Moltbook** (réseau social d'agents IA) : pas d'acheteurs réels, failles de sécurité signalées. Écarté.
+- **Paiements entre agents (x402, AP2, Amazon AgentCore)** : les rails existent et des annuaires de services pour agents aussi, mais une analyse de TRM Labs indique que la plupart du volume x402 n'est ni agentique ni commercial. Ils servent à vendre des API payables à l'usage, pas de la formation. Écarté pour l'instant ; à revoir si un produit-API apparaît.
+- **Concurrents locaux à connaître** : i-Formations (Morges), La Digital Room (Lausanne, Valais), agences de Lausanne et Genève. Le créneau libre reste particuliers, aînés, indépendants, associations.
+- **Partenaires possibles plutôt que concurrents** : associations qui proposent déjà des ateliers numériques (ex. association Découvrir, Genève) ; projets cantonaux latins de modules de formation numérique (amministrazione-digitale-svizzera.ch).
