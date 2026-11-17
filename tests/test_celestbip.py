@@ -49,6 +49,14 @@ class BuildTests(unittest.TestCase):
         cb.build()
         self.assertEqual(cb.checks(), [])
 
+    def test_return_page_does_not_claim_that_a_visit_proves_payment(self):
+        cb.build()
+        page = (cb.DIST / "merci.html").read_text(encoding="utf-8")
+        self.assertIn("elle ne vérifie pas qu'un paiement a été reçu", page)
+        self.assertIn("Gumroad", page)
+        self.assertNotIn("Votre paiement est confirmé", page)
+        self.assertNotIn('content="Paiement reçu.', page)
+
     def test_only_stripe_links_become_buttons(self):
         html = cb.offers_html([("A", "1 CHF", "d", "https://buy.stripe.com/abc"),
                                ("B", "2 CHF", "d", "https://evil.example/pay"),

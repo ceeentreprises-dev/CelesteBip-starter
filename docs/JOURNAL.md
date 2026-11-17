@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | Suite — Page de retour de commande | Message de confirmation automatique retiré : une visite ne prouve pas un paiement ; contrôle du générateur et 23 tests locaux réussis |
 | 2026-11-17 | T5 — Navigation clavier et affichage mobile | Lien d'évitement local et focus corrigés ; huit parcours Chromium sur deux pages et quatre largeurs réussis ; contrôles et 22 tests locaux réussis ; rapport dans `docs/ACCESSIBILITE.md` |
 | 2026-11-17 | T4 — Article 07, IA et données personnelles au quotidien | Conseils prudents, article listé et généré localement ; contrôles et 20 tests locaux réussis |
 | 2026-11-17 | T3 — Liens Markdown limités aux chemins relatifs et à la liste blanche | Échappement et refus des injections, domaines similaires et traversées vérifiés ; contrôles et 19 tests locaux réussis |

@@ -9,7 +9,7 @@ USAGE:
     python CELESTBIP_MASTER.py package
     python CELESTBIP_MASTER.py status
 
-AUCUN appel réseau. Les paiements passent uniquement par des liens Stripe (OFFERS).
+AUCUN appel réseau. Les paiements passent par les liens des prestataires autorisés (OFFERS).
 Licence du code : MIT, sans garantie. Contenus éditoriaux : CelestBIP.
 """
 from __future__ import annotations
@@ -49,7 +49,7 @@ SPONSORS_URL = "https://github.com/sponsors/ceeentreprises-dev"
 ARTICLES = ROOT / "articles"
 PAGES = ROOT / "pages"  # pages éditoriales fixes (à propos…)
 ALLOWED_LINK_PREFIXES = PAY_PREFIXES + ("https://github.com/ceeentreprises-dev", "https://github.com/sponsors/ceeentreprises-dev")
-# (titre, prix affiché, description, lien de paiement Stripe ; vide = « bientôt »)
+# (titre, prix affiché, description, lien du prestataire ; vide = « bientôt »)
 OFFERS = [
     ("Séance « Démarrer avec l'IA »", "150 CHF",
      "90 minutes en individuel, en ligne : configurer votre assistant, 3 cas concrets de votre quotidien, "
@@ -375,7 +375,7 @@ def load_approved_support():
 
 
 def offers_html(offers=None) -> str:
-    """Cartes d'offres ; seul un lien Stripe ou PayPal devient un bouton de paiement."""
+    """Cartes d'offres ; seuls les prestataires autorisés deviennent des liens de paiement."""
     cards = []
     for i, (title, price, desc, url) in enumerate(offers if offers is not None else OFFERS, 1):
         if url.startswith(PAY_PREFIXES) and '"' not in url:
@@ -500,9 +500,13 @@ def build() -> dict:
                                         f'<p class="eyebrow">{escape(m)}</p><h1>{escape(t)}</h1>{body}', f),
                               encoding="utf-8")
     (DIST / "merci.html").write_text(page_html(
-        "Merci", "Paiement reçu.", '<p class="eyebrow">Paiement reçu</p><h1>Merci !</h1>'
-        "<p>Votre paiement est confirmé. Vous recevez un reçu de PayPal ou Stripe par e-mail, et nous vous "
-        "écrivons sous 48 heures pour fixer la suite (date, lien ou lieu).</p>", "merci.html"), encoding="utf-8")
+        "Retour de commande", "Vérifier le statut de votre commande auprès du prestataire.",
+        '<p class="eyebrow">Retour de commande</p><h1>Vérifiez votre confirmation</h1>'
+        "<p>Cette page est accessible librement : elle ne vérifie pas qu'un paiement a été reçu. "
+        "Consultez le statut et le reçu éventuel directement auprès du prestataire utilisé, notamment Gumroad.</p>"
+        "<p>Si votre achat est confirmé par le prestataire, suivez les indications de son reçu "
+        "pour la réservation, la livraison ou la suite de votre demande. Si le statut reste incertain, "
+        "vérifiez-le avant de recommencer le paiement.</p>", "merci.html"), encoding="utf-8")
     static = []
     for md in sorted(PAGES.glob("*.md")):
         t, m, body = md_to_html(md.read_text(encoding="utf-8"))
