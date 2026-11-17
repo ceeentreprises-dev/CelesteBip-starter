@@ -58,6 +58,16 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("evil.example", html)
         self.assertEqual(html.count("bientôt disponible"), 2)
 
+    def test_pme_workshop_is_displayed_without_payment_link(self):
+        offer = next(item for item in cb.OFFERS if item[0].startswith("Atelier PME"))
+        self.assertEqual(offer[0], "Atelier PME sur site (3 h, jusqu'à 12 personnes)")
+        self.assertEqual(offer[1], "900 CHF")
+        self.assertEqual(offer[3], "")
+        card = cb.offers_html([offer])
+        self.assertIn("900 CHF", card)
+        self.assertIn("bientôt disponible", card)
+        self.assertNotIn("href=", card)
+
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({
             "iban": "CH93 0076 2011 6238 5295 7", "beneficiary": "Test",

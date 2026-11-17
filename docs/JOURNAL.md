@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-17 | T1 — Offre Atelier PME, 3 h sur site et jusqu'à 12 personnes | Carte à 900 CHF, bientôt disponible et sans lien de paiement ; contrôles et 10 tests locaux réussis |
 | 2026-11-15 | Site mis en ligne (GitHub Pages), publication automatique à chaque push | En ligne, tests automatiques OK |
 | 2026-11-15 | Offres pilotes, guide PDF gratuit, 3 premiers articles, dossier partenaires PDF | Publiés |
 | 2026-11-15 | Business plan condensé, plan d'action 90 jours, kit de diffusion | Dans `docs/` |

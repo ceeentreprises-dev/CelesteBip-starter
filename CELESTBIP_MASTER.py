@@ -57,6 +57,9 @@ OFFERS = [
      "La date est confirmée par e-mail après réservation.", GUMROAD_PREFIX + "ndevn"),
     ("Adhésion de soutien", "10 CHF / mois",
      "Accès prioritaire aux ateliers, un nouveau guide pratique chaque mois. Résiliable à tout moment.", GUMROAD_PREFIX + "xjbem"),
+    ("Atelier PME sur site (3 h, jusqu'à 12 personnes)", "900 CHF",
+     "Exercices pratiques adaptés à votre structure, méthode de vérification et préparation "
+     "d'une charte d'usage interne. Format pilote en préparation.", ""),
 ]
 
 CSS = r"""
@@ -499,7 +502,7 @@ def checks() -> list:
              for u in re.findall(r'href="(https?://[^"]+)"', page.read_text(encoding="utf-8"))]
     check(all(u.startswith(ALLOWED_LINK_PREFIXES + (SITE_URL,)) for u in links), "external_links_allowed_only")
     check(f'href="{PARTNERS_PDF}"' in site, "partners_pdf_link")
-    check(site.count('class="card"') == 6 + len(articles()), "cards_rendered")
+    check(site.count('class="card"') == 3 + len(OFFERS) + len(articles()), "cards_rendered")
     check(site.count(GUMROAD_PREFIX) >= 3, "pay_links_present")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
     check("accord écrit" in site or "IBAN" in site, "support_is_clear")
