@@ -147,7 +147,7 @@ HTML_TEMPLATE = '''<!doctype html>
 <link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#contenu">Aller au contenu</a>
 <header><div class="wrap nav"><a href="#accueil" class="logo" aria-label="CelestBIP accueil">Celest<span>BIP</span></a>
-<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="a-propos.html">À propos</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
+<nav aria-label="Navigation principale"><a href="#projet">Le projet</a><a href="#offres">Offres</a><a href="#articles">Articles</a><a href="a-propos.html">À propos</a><a href="partenaires.html">Partenaires</a><a href="#guide">PDF gratuit</a><a href="#soutenir">Soutenir</a></nav></div></header>
 <main id="contenu"><section id="accueil" class="hero"><img class="hero-art" src="hero.svg" alt="" aria-hidden="true">
 <div class="wrap hero-content"><p class="eyebrow">Projet indépendant · Humain × IA</p>
 <h1>L'humain d'abord.<br><span class="shine">L'IA pour apprendre et créer.</span></h1>

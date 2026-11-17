@@ -68,6 +68,14 @@ class BuildTests(unittest.TestCase):
         self.assertIn("bientôt disponible", card)
         self.assertNotIn("href=", card)
 
+    def test_partners_page_is_generated_linked_and_in_sitemap(self):
+        cb.build()
+        page = (cb.DIST / "partenaires.html").read_text(encoding="utf-8")
+        self.assertIn("<h1>Partenaires</h1>", page)
+        self.assertIn("aucun partenaire signé", page)
+        self.assertIn('href="partenaires.html"', (cb.DIST / "index.html").read_text())
+        self.assertIn(cb.SITE_URL + "partenaires.html", (cb.DIST / "sitemap.xml").read_text())
+
     def test_support_needs_three_approvals(self):
         cb.CONFIG_FILE.write_text(json.dumps({
             "iban": "CH93 0076 2011 6238 5295 7", "beneficiary": "Test",

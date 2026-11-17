@@ -10,6 +10,7 @@
 - Générateur initial : une page et un guide PDF gratuit.
 
 ## Non publié
+- T2 — Créer la page Partenaires, ses trois modèles de collaboration et son accès dans la navigation.
 - T1 — Ajouter l'Atelier PME à 900 CHF, bientôt disponible sans paiement, et adapter le contrôle des cartes.
 - Page « À propos », journal d'activité, plan de partenariats, analyse de marché.
 - Liens de paiement Gumroad, 6 articles.
