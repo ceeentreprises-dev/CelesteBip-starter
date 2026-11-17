@@ -40,8 +40,9 @@ SITE_URL = "https://ceeentreprises-dev.github.io/CelesteBip-starter/"
 # Contact public = profil GitHub (identité privée protégée)
 CONTACT_URL = "https://github.com/ceeentreprises-dev/CelesteBip-starter/issues/new?title=Partenariat%20CelestBIP"
 PAYPAL_PREFIX = "https://www.paypal.com/ncp/payment/"
-PAY_PREFIXES = (STRIPE_PREFIX, PAYPAL_PREFIX)
-DONATION_URL = ""  # lien PayPal « Soutien libre » ; vide = bouton masqué
+GUMROAD_PREFIX = "https://laracail.gumroad.com/l/"
+PAY_PREFIXES = (STRIPE_PREFIX, PAYPAL_PREFIX, GUMROAD_PREFIX)
+DONATION_URL = GUMROAD_PREFIX + "beiymlv"  # « Soutien libre » ; vide = bouton masqué
 SPONSORS_URL = "https://github.com/sponsors/ceeentreprises-dev"
 ARTICLES = ROOT / "articles"
 ALLOWED_LINK_PREFIXES = PAY_PREFIXES + ("https://github.com/ceeentreprises-dev", "https://github.com/sponsors/ceeentreprises-dev")
@@ -49,12 +50,12 @@ ALLOWED_LINK_PREFIXES = PAY_PREFIXES + ("https://github.com/ceeentreprises-dev",
 OFFERS = [
     ("Séance « Démarrer avec l'IA »", "150 CHF",
      "90 minutes en individuel, en ligne : configurer votre assistant, 3 cas concrets de votre quotidien, "
-     "règles de vérification et de confidentialité. Prix pilote, 10 places.", ""),
+     "règles de vérification et de confidentialité. Prix pilote, 10 places.", GUMROAD_PREFIX + "lkeew"),
     ("Atelier collectif pilote", "20 CHF",
      "2 heures en petit groupe (max. 15) pour découvrir l'IA, essayer et poser vos questions. "
-     "La date est confirmée par e-mail après réservation.", ""),
+     "La date est confirmée par e-mail après réservation.", GUMROAD_PREFIX + "ndevn"),
     ("Adhésion de soutien", "10 CHF / mois",
-     "Accès prioritaire aux ateliers, un nouveau guide pratique chaque mois. Résiliable à tout moment.", ""),
+     "Accès prioritaire aux ateliers, un nouveau guide pratique chaque mois. Résiliable à tout moment.", GUMROAD_PREFIX + "xjbem"),
 ]
 
 CSS = r"""
@@ -154,7 +155,7 @@ HTML_TEMPLATE = '''<!doctype html>
 <article class="card"><span class="num">02</span><h3>Essayer</h3><p>Apprendre avec de petits exemples accessibles, sans compétence technique obligatoire.</p></article>
 <article class="card"><span class="num">03</span><h3>Partager</h3><p>Mettre des connaissances utiles à disposition du plus grand nombre, gratuitement.</p></article></div></div></section>
 <section id="offres" class="banded"><div class="wrap"><p class="eyebrow">Offres pilotes</p><h2>Apprendre l'IA avec un humain, à votre rythme.</h2>
-<p class="section-intro">Pour les particuliers, indépendants et petites structures de Suisse romande qui veulent utiliser l'IA de façon utile et prudente. Paiement sécurisé par Stripe (carte, TWINT selon disponibilité).</p>
+<p class="section-intro">Pour les particuliers, indépendants et petites structures de Suisse romande qui veulent utiliser l'IA de façon utile et prudente. Paiement sécurisé par Gumroad (carte ou PayPal).</p>
 <div class="grid">{{OFFERS_BLOCK}}</div></div></section>
 <section id="articles"><div class="wrap"><p class="eyebrow">Articles</p><h2>Des méthodes simples, à lire en cinq minutes.</h2>
 <div class="grid">{{ARTICLES_BLOCK}}</div></div></section>
@@ -169,7 +170,7 @@ HTML_TEMPLATE = '''<!doctype html>
 {{SUPPORT_BLOCK}}
 <p class="disclosure">Les fonds éventuels serviront à la préparation, au travail humain nécessaire, au fonctionnement et aux développements du projet. Un budget détaillé sera présenté avant toute collecte. Aucun résultat ni remboursement n'est promis.</p>
 </div></div></section></main>
-<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par PayPal ou Stripe, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
+<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant · Paiements traités par Gumroad, aucune donnée bancaire stockée par CelestBIP.</div></div></footer>
 </body></html>'''
 
 GUIDE_SECTIONS = [
@@ -416,8 +417,8 @@ def articles() -> list:
 
 def support_html(bank) -> str:
     links = f'<a class="button secondary" href="{SPONSORS_URL}" rel="noopener">GitHub Sponsors</a>'
-    if DONATION_URL.startswith(PAYPAL_PREFIX) and '"' not in DONATION_URL:
-        links = f'<a class="button" href="{escape(DONATION_URL)}" rel="noopener">Soutenir via PayPal</a>' + links
+    if DONATION_URL.startswith(PAY_PREFIXES) and '"' not in DONATION_URL:
+        links = f'<a class="button" href="{escape(DONATION_URL)}" rel="noopener">Soutenir le projet</a>' + links
     links = f'<div class="actions">{links}</div>'
     if bank is None:
         return links + ('<div class="note"><strong>Devenir partenaire :</strong> lisez le '
@@ -491,6 +492,7 @@ def checks() -> list:
     check(all(u.startswith(ALLOWED_LINK_PREFIXES + (SITE_URL,)) for u in links), "external_links_allowed_only")
     check(f'href="{PARTNERS_PDF}"' in site, "partners_pdf_link")
     check(site.count('class="card"') == 6 + len(articles()), "cards_rendered")
+    check(site.count(GUMROAD_PREFIX) >= 3, "pay_links_present")
     check("fondation reconnue" not in site.lower() and "présidente" not in site.lower(), "no_false_status")
     check("accord écrit" in site or "IBAN" in site, "support_is_clear")
     for f in PUBLIC_FILES:
