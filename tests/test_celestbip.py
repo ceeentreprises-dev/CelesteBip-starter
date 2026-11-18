@@ -28,12 +28,32 @@ class BuildTests(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         tmp = Path(self._tmp.name)
-        self._old = (cb.DIST, cb.RELEASE, cb.CONFIG_FILE)
+        self._old = (cb.DIST, cb.RELEASE, cb.CONFIG_FILE, cb.LEGAL_FILE)
         cb.DIST, cb.RELEASE, cb.CONFIG_FILE = tmp / "dist", tmp / "release", tmp / "support-approved.json"
+        cb.LEGAL_FILE = tmp / "legal-info.json"
 
     def tearDown(self):
-        cb.DIST, cb.RELEASE, cb.CONFIG_FILE = self._old
+        cb.DIST, cb.RELEASE, cb.CONFIG_FILE, cb.LEGAL_FILE = self._old
         self._tmp.cleanup()
+
+    def test_no_legal_pages_without_local_info(self):
+        cb.build()
+        self.assertFalse((cb.DIST / "mentions-legales.html").exists())
+        self.assertNotIn("Mentions légales", (cb.DIST / "index.html").read_text(encoding="utf-8"))
+
+    def test_legal_pages_with_info_and_escaping(self):
+        cb.LEGAL_FILE.write_text(json.dumps({"name": "A <b>&Co", "city": "Lausanne", "canton": "VD",
+                                             "email": "contact@example.org"}), encoding="utf-8")
+        cb.build()
+        self.assertEqual(cb.checks(), [])
+        page = (cb.DIST / "mentions-legales.html").read_text(encoding="utf-8")
+        self.assertIn("A &lt;b&gt;&amp;Co", page)
+        self.assertIn("confidentialite.html", (cb.DIST / "index.html").read_text(encoding="utf-8"))
+
+    def test_incomplete_legal_info_is_rejected(self):
+        cb.LEGAL_FILE.write_text(json.dumps({"name": "X", "city": "", "canton": "VD", "email": "x@y.ch"}), encoding="utf-8")
+        with self.assertRaises(ValueError):
+            cb.build()
 
     def test_build_has_no_payment_by_default(self):
         summary = cb.build()

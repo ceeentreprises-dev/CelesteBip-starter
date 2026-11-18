@@ -40,6 +40,16 @@ Tests unitaires : `python -m unittest discover -s tests -v`
 - **Page en `noindex`** : rien n'est indexé par les moteurs de recherche tant que vous ne l'avez pas décidé.
 - **Aucune dépendance obligatoire.** Si `reportlab` est installé, le PDF est plus soigné ; sinon un PDF de secours est produit avec la bibliothèque standard Python.
 
+## Pages légales (facultatif)
+
+Crée un fichier local `legal-info.json` (jamais publié, voir `.gitignore`) :
+
+```json
+{"name": "Ton nom ou ton entreprise", "city": "Ville", "canton": "VD", "email": "contact@exemple.ch"}
+```
+
+Au prochain `build`, les pages « Mentions légales » et « Confidentialité » sont générées et liées en bas de page. Sans ce fichier, aucune n'est créée. Ce sont des modèles, pas un avis juridique.
+
 ## Ce que ce projet n'est pas
 
 Pas une application, pas une « superintelligence », pas un service. C'est un outil simple et honnête, que vous pouvez lire en entier en dix minutes.

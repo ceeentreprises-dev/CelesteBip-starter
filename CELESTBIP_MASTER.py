@@ -30,6 +30,8 @@ RELEASE = ROOT / "release"
 GUIDE = "installer-celestbip-soi-meme.pdf"
 PUBLIC_FILES = ("index.html", "style.css", "hero.svg", GUIDE, "robots.txt")
 CONFIG_FILE = ROOT / "support-approved.json"
+LEGAL_FILE = ROOT / "legal-info.json"  # local, jamais publié (voir .gitignore)
+LEGAL_PAGES = ("mentions-legales.html", "confidentialite.html")
 
 BRAND = "CelestBIP"
 
@@ -136,7 +138,7 @@ HTML_TEMPLATE = '''<!doctype html>
 {{SUPPORT_BLOCK}}
 <p class="disclosure">Les fonds éventuels serviront à la préparation, au travail humain nécessaire, au fonctionnement et aux développements du projet. Un budget détaillé sera présenté avant toute collecte. Aucun résultat ni remboursement n'est promis.</p>
 </div></div></section></main>
-<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir</div><div>Projet indépendant en préparation · Aucune collecte activée sur cette page à ce jour.</div></div></footer>
+<footer><div class="wrap foot"><div><strong>CelestBIP</strong> · Idées · Outils · Avenir{{LEGAL_LINKS}}</div><div>Projet indépendant en préparation · Aucune collecte activée sur cette page à ce jour.</div></div></footer>
 </body></html>'''
 
 GUIDE_SECTIONS = [
@@ -329,6 +331,48 @@ def load_approved_support():
     return {"iban": re.sub(r"\s+", "", c["iban"]).upper(), "beneficiary": beneficiary}
 
 
+def load_legal():
+    """Identité de l'éditeur, lue dans un fichier local. Sans elle, aucune page légale n'est publiée."""
+    if not LEGAL_FILE.exists():
+        return None
+    c = json.loads(LEGAL_FILE.read_text(encoding="utf-8"))
+    info = {k: str(c.get(k, "")).strip() for k in ("name", "city", "canton", "email")}
+    if not all(info.values()) or not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", info["email"]):
+        raise ValueError("legal-info.json : name, city, canton et email valides requis")
+    return info
+
+
+def legal_pages(info) -> dict:
+    """Modèles de mentions légales et de confidentialité (nLPD suisse). Pas un avis juridique."""
+    name, city, canton, email = (escape(info[k]) for k in ("name", "city", "canton", "email"))
+    head = ('<!doctype html>\n<html lang="fr-CH"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<meta name="robots" content="noindex,nofollow"><title>{t} | CelestBIP</title>'
+            '<link rel="stylesheet" href="style.css"></head>\n<body><main class="wrap" style="padding:60px 0">'
+            '<p><a href="index.html">← Retour à l\'accueil</a></p><h1 style="font-size:2.2rem">{t}</h1>')
+    tail = '</main></body></html>'
+    mentions = head.format(t="Mentions légales") + (
+        f'<p><strong>Éditeur :</strong> {name}, {city} ({canton}), Suisse.</p>'
+        f'<p><strong>Contact :</strong> <a href="mailto:{email}">{email}</a></p>'
+        '<p>CelestBIP est un projet indépendant. Ce site n\'est pas une association reconnue d\'utilité publique '
+        'et ne constitue pas une offre d\'investissement. Les contenus sont fournis à titre informatif, '
+        'sans garantie, et ne remplacent aucun conseil juridique, médical ou financier.</p>'
+        '<p>Le code du générateur est publié sous licence MIT. Les contenus éditoriaux restent la propriété de leur éditeur.</p>'
+    ) + tail
+    privacy = head.format(t="Confidentialité") + (
+        f'<p><strong>Responsable :</strong> {name}, {city} ({canton}) · <a href="mailto:{email}">{email}</a></p>'
+        '<p>Ce site ne contient ni cookie, ni formulaire, ni outil de mesure d\'audience, ni contenu chargé depuis un service tiers. '
+        'Nous ne collectons aucune donnée personnelle de manière active.</p>'
+        '<p>Comme tout serveur web, l\'hébergeur du site peut enregistrer temporairement l\'adresse IP et l\'heure de la visite '
+        'dans ses journaux techniques, pour la sécurité et le bon fonctionnement. Ces journaux ne sont pas utilisés par l\'éditeur '
+        'pour identifier les visiteurs.</p>'
+        f'<p>Si vous nous écrivez, nous utilisons votre message et votre adresse uniquement pour vous répondre. '
+        f'Selon la loi suisse sur la protection des données, vous pouvez demander l\'accès, la correction ou la suppression '
+        f'de vos données en écrivant à <a href="mailto:{email}">{email}</a>.</p>'
+    ) + tail
+    return dict(zip(LEGAL_PAGES, (mentions, privacy)))
+
+
 def support_html(bank) -> str:
     if bank is None:
         return ('<div class="note"><strong>Contributions non ouvertes pour le moment.</strong> '
@@ -345,7 +389,13 @@ def support_html(bank) -> str:
 def build() -> dict:
     DIST.mkdir(exist_ok=True)
     support = load_approved_support()
-    html = HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support))
+    legal = load_legal()
+    links = ' · <a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a>' if legal else ""
+    for page in LEGAL_PAGES:
+        (DIST / page).unlink(missing_ok=True)
+    for page, content in (legal_pages(legal) if legal else {}).items():
+        (DIST / page).write_text(content, encoding="utf-8")
+    html = HTML_TEMPLATE.replace("{{SUPPORT_BLOCK}}", support_html(support)).replace("{{LEGAL_LINKS}}", links)
     if support:
         html = html.replace("Aucune collecte activée sur cette page à ce jour.",
                             "Coordonnées de soutien volontaire affichées après validation.")
@@ -373,7 +423,7 @@ def checks() -> list:
         build()
     site = (DIST / "index.html").read_text(encoding="utf-8")
     check(site.lower().count("<!doctype html>") == 1, "one_html_document")
-    check(len(list(DIST.glob("*.html"))) == 1, "single_web_page")
+    check({p.name for p in DIST.glob("*.html")} <= {"index.html", *LEGAL_PAGES}, "only_expected_pages")
     check(f'href="{GUIDE}"' in site, "pdf_download_link")
     check((DIST / GUIDE).read_bytes().startswith(b"%PDF-"), "real_pdf_file")
     check("noindex,nofollow" in site, "no_public_indexation_without_approval")
