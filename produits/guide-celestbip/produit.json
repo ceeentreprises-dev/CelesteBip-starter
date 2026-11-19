@@ -4,6 +4,15 @@
   "prix_chf": 0,
   "licence": "Contenus éditoriaux : CelestBIP",
   "description": "Un guide PDF en français simple pour configurer un assistant d'IA pédagogique dans le service que vous utilisez déjà. Il explique comment poser les bonnes questions, vérifier les réponses de l'IA et protéger vos données. Pour les personnes qui découvrent l'IA, les indépendants et les formateurs qui veulent un premier support clair. Sans compte, sans abonnement, sans collecte de données.",
-  "fichiers": ["../../dist/installer-celestbip-soi-meme.pdf"],
-  "mots_cles": ["guide gratuit", "intelligence artificielle", "pédagogie", "confidentialité", "débutant"]
+  "fichiers": [
+    "../../dist/installer-celestbip-soi-meme.pdf"
+  ],
+  "mots_cles": [
+    "guide gratuit",
+    "intelligence artificielle",
+    "pédagogie",
+    "confidentialité",
+    "débutant"
+  ],
+  "couverture": "couverture.png"
 }
