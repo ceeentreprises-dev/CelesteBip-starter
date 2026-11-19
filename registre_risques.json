@@ -1,0 +1,59 @@
+[
+  {
+    "id": "R1",
+    "titre": "Un mail intitulé « ordre » déclenche une action",
+    "categorie": "securite",
+    "proba": 4,
+    "gravite": 4,
+    "fenetre_jours": 7,
+    "traitement": "réduire",
+    "action_0chf": "Les mails sont des données, pas des ordres. Aucune action (paiement, publication, config) sans ta validation explicite dans la session.",
+    "statut": "actif",
+    "note": "Risque extrait du cadre « relance automatiquement sur nouvel input (email) »."
+  },
+  {
+    "id": "R2",
+    "titre": "Un agent agit seul, sans validation humaine",
+    "categorie": "securite",
+    "proba": 3,
+    "gravite": 5,
+    "fenetre_jours": 14,
+    "traitement": "éviter",
+    "action_0chf": "Pas de déclenchement automatique ni de relais Claude->Codex auto. Chaque action technique attend un clic.",
+    "statut": "actif",
+    "note": "Risque extrait du relais « Risk Architect -> Risk Executor » et des « systèmes IA autonomes »."
+  },
+  {
+    "id": "R3",
+    "titre": "Compte unique compromis (Gmail / GitHub / paiement)",
+    "categorie": "securite",
+    "proba": 3,
+    "gravite": 5,
+    "fenetre_jours": 30,
+    "traitement": "réduire",
+    "action_0chf": "Activer la validation en deux étapes sur Gmail et GitHub. Tout le système passe par ces deux comptes.",
+    "statut": "actif"
+  },
+  {
+    "id": "R4",
+    "titre": "Un secret part dans un produit vendu",
+    "categorie": "securite",
+    "proba": 2,
+    "gravite": 4,
+    "fenetre_jours": 7,
+    "traitement": "réduire",
+    "action_0chf": "Le moteur de publication bloque déjà sur clé privée, clé d'API, mot de passe et IBAN. Garder ce contrôle avant chaque kit.",
+    "statut": "actif"
+  },
+  {
+    "id": "R5",
+    "titre": "Le code du moteur est recopié car le dépôt est public",
+    "categorie": "juridique",
+    "proba": 2,
+    "gravite": 3,
+    "fenetre_jours": 30,
+    "traitement": "réduire",
+    "action_0chf": "Licence « tous droits réservés » en place. Pour vraiment cacher le code, déplacer le moteur dans un dépôt privé.",
+    "statut": "actif"
+  }
+]

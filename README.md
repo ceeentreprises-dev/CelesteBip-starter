@@ -61,6 +61,16 @@ Ce qui bloque la préparation : un fichier manquant ou hors du dépôt, un secre
 
 **Licence du moteur : tous droits réservés.** Le moteur n'est pas sous licence MIT : sa copie, sa modification et sa réutilisation sont interdites sans autorisation écrite (voir [LICENCE-MOTEUR.md](LICENCE-MOTEUR.md)).
 
+## Registre de risque
+
+`registre_risques.py` est la partie saine du cadre ISO 31000, lancée à la main : identifier → analyser (proba × gravité, de 1 à 5) → évaluer → traiter (éviter / réduire / transférer / accepter), avec une action à 0 CHF par risque. **Pas d'autonomie** : aucun déclenchement automatique, aucun relais entre agents, aucun réseau. Vous le relancez quand une décision change.
+
+```bash
+python registre_risques.py        # trie les risques actifs, les urgents (< 30 j) d'abord
+```
+
+Les risques sont dans `registre_risques.json`. Règles : au plus 7 risques actifs (garde-fou anti-bureaucratie), chaque risque a un `traitement` et une `action_0chf`. Le registre est semé avec les risques de sécurité issus du cadre multi-agents lui-même (mail pris pour un ordre, agent qui agit seul, compte unique). Licence « tous droits réservés » (voir [LICENCE-MOTEUR.md](LICENCE-MOTEUR.md)).
+
 ## Ce qui est garanti
 
 - **Aucun appel réseau.** Le script ne contacte aucun serveur.
