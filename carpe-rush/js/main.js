@@ -224,7 +224,14 @@
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'q') keys.left = true;
     if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
     if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') state === 'play' ? pause() : resume();
-    if ((e.key === 'Enter' || e.key === ' ') && (state === 'menu' || state === 'over')) startGame();
+    // Les sous-vues gardent l'état menu/over : seul l'écran de départ visible
+    // doit autoriser ce raccourci sur le fond de page.
+    const canStart = (state === 'menu' && !$('screen-menu').classList.contains('hidden')) ||
+      (state === 'over' && !$('screen-over').classList.contains('hidden'));
+    if ((e.key === 'Enter' || e.key === ' ') && canStart) {
+      e.preventDefault();
+      startGame();
+    }
   });
   addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'q') keys.left = false;
