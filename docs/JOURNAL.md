@@ -28,3 +28,4 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 - Participants à un atelier : 0
 - Partenaires signés : 0
 - Articles publiés : 7 (article 07 contrôlé après le déploiement du 17 novembre)
+- 2026-11-20 : préparation du profil de sponsoring (README, règles de conduite, modèles d'issues), en attente de fusion.

@@ -10,6 +10,7 @@
 - Générateur initial : une page et un guide PDF gratuit.
 
 ## Non publié
+- Profil — Ajouter une section « Soutenir, partager, participer », les règles de conduite et deux modèles d'issues (idée d'article, erreur).
 - Suite — Actualiser les états vérifiés du catalogue, le plan de 30 jours, les rôles et la fiche d'animation de la séance pilote.
 - Suite — Rendre Carpe Rush exportable et archivable avec sa licence, préserver le zoom, contrôler les sauvegardes locales et respecter les boutons au clavier.
 - Suite — Remplacer la confirmation implicite de paiement sur la page de retour par une vérification auprès du prestataire.

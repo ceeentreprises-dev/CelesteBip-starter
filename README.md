@@ -20,6 +20,18 @@ CelestBIP est une initiative indépendante, née en novembre 2026. Elle propose 
 
 Le dépôt contient tout le site et son générateur : on peut le lire en entier, le copier et le réutiliser (licence MIT).
 
+## Soutenir, partager, participer
+
+Tout est gratuit à lire, à copier et à réutiliser (licence MIT). Vous pouvez aider de plusieurs façons, de la plus simple à la plus engagée :
+
+- ⭐ **Mettre une étoile** au dépôt : cela le rend visible à d'autres.
+- 💬 **Partager** le [guide PDF gratuit](https://ceeentreprises-dev.github.io/CelesteBip-starter/) à une personne qui débute avec l'IA.
+- 🐛 **Signaler** une erreur ou **proposer** un sujet d'article via les [issues](https://github.com/ceeentreprises-dev/CelesteBip-starter/issues/new/choose).
+- 🤝 **Proposer un partenariat** (atelier offert pour un public peu servi) : voir [PARTENARIATS](docs/PARTENARIATS.md).
+- 💙 **Sponsoriser** le projet : le bouton « Sponsor » apparaît en haut de cette page dès que notre profil GitHub Sponsors est validé. Il finance du temps pour de nouveaux guides et des ateliers offerts. Chaque contribution sera remerciée publiquement, uniquement si vous le souhaitez.
+
+Nous ne promettons aucun résultat financier ou professionnel, et nous n'affichons que des faits vérifiables (voir le [journal](docs/JOURNAL.md)). Règles de conduite : [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md).
+
 ## Où nous en sommes (17 nov. 2026)
 
 | | |
