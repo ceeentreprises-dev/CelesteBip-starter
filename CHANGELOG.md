@@ -10,6 +10,7 @@
 - Générateur initial : une page et un guide PDF gratuit.
 
 ## Non publié
+- 20 novembre — Revérifier les quatre offres Gumroad et actualiser l'état marchand dans le plan d'action, le dossier et les instructions des agents.
 - 20 novembre — Empêcher Entrée et Espace de lancer une partie depuis le fond de la boutique, de l'aide ou des succès ; conserver le contrôle navigateur de régression.
 - Suite — Actualiser les états vérifiés du catalogue, le plan de 30 jours, les rôles et la fiche d'animation de la séance pilote.
 - Suite — Rendre Carpe Rush exportable et archivable avec sa licence, préserver le zoom, contrôler les sauvegardes locales et respecter les boutons au clavier.

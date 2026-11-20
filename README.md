@@ -20,12 +20,12 @@ CelestBIP est une initiative indépendante, née en novembre 2026. Elle propose 
 
 Le dépôt contient tout le site et son générateur : on peut le lire en entier, le copier et le réutiliser (licence MIT).
 
-## Où nous en sommes (17 nov. 2026)
+## Où nous en sommes (publications du 17 et contrôle marchand du 20 novembre 2026)
 
 | | |
 |---|---|
 | Site en ligne, publication automatique | ✅ |
-| Catalogue Gumroad | 4 produits publiés ; 0 vente dans leurs compteurs consultés le 17 novembre ; versement futur non validé |
+| Catalogue Gumroad | 4 produits publiés ; 0 vente dans leurs compteurs revérifiés le 20 novembre ; versement futur non validé |
 | Atelier PME | 900 CHF, bientôt disponible, sans lien de paiement |
 | Articles publiés | 7 |
 | Partenaires signés | 0 — plan prêt, voir [PARTENARIATS](docs/PARTENARIATS.md) |

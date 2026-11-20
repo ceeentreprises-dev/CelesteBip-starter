@@ -4,6 +4,7 @@ Seuls les faits vérifiables sont inscrits ici : date, action, résultat. Les ve
 
 | Date | Action | Résultat |
 |---|---|---|
+| 2026-11-20 | Contrôle marchand — Gumroad | Le compte attendu et les quatre produits aux tarifs annoncés sont revérifiés en lecture seule ; compteurs cumulés à zéro vente et liste des versements vide, sans achat ni modification du compte |
 | 2026-11-20 | Correctif — Raccourcis clavier dans les sous-vues de Carpe Rush | Huit régressions reproduites avant correction puis huit sous-vues préservées et deux parcours de commandes réussis ; contrôles du générateur et 29 tests unitaires réussis ; contrôle navigateur facultatif conservé dans `tests/` |
 | 2026-11-17 | Suite — Catalogue et plan d'exploitation | Quatre produits Gumroad publiés vérifiés en lecture seule, compteurs à zéro et aucun versement retourné ; plan de 30 jours et fiche de séance de 90 minutes préparés, sans achat ni envoi |
 | 2026-11-17 | Suite — Restauration de l'export Carpe Rush | Huit fichiers runtime et licence MIT, sitemap et ZIP récursif ; sauvegardes locales et clavier corrigés ; contrôles, 29 tests unitaires et scénarios Chromium ciblés réussis avant publication |

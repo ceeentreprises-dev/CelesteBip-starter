@@ -8,7 +8,7 @@ Ce fichier est lu automatiquement par les agents de code. Il décrit le projet, 
 - **Site statique** généré par un seul script Python (`CELESTBIP_MASTER.py`), publié sur GitHub Pages : https://ceeentreprises-dev.github.io/CelesteBip-starter/
 - **Revenus** : séances (150 CHF), ateliers (20 CHF/place), adhésion (10 CHF/mois), soutien libre ; paiements via liens Gumroad. Sponsoring d'ateliers offerts.
 - **Langue** : tout le contenu public est en **français (fr-CH)**, ton clair, sobre, sans jargon.
-- **État vérifié au 17 nov. 2026** : site en ligne, 7 articles et 4 produits Gumroad publiés. Leurs compteurs consultés indiquent 0 vente ; aucun versement ne figure dans la liste retournée. Cela ne valide pas un versement futur ni une prestation livrée. Aucun partenaire signé n'est annoncé.
+- **État marchand revérifié au 20 nov. 2026** : site en ligne, 7 articles et 4 produits Gumroad publiés. Leurs compteurs cumulés consultés indiquent 0 vente ; aucun versement ne figure dans la liste retournée. Cela ne valide pas un versement futur ni une prestation livrée. Aucun partenaire signé n'est annoncé.
 
 ## 2. Règles absolues (ne jamais enfreindre)
 

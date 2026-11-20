@@ -1,17 +1,17 @@
 # CelestBIP — Suite opérationnelle sur 30 jours
 
-Version préparée le 17 novembre 2026. Les périodes ci-dessous sont indicatives ; elles servent à organiser le travail, sans garantir une vente, un partenariat ou une date de livraison.
+Version préparée le 17 novembre 2026, état marchand revérifié le 20 novembre 2026. Les périodes ci-dessous sont indicatives ; elles servent à organiser le travail, sans garantir une vente, un partenariat ou une date de livraison.
 Priorités : rendre la séance individuelle réellement livrable, puis proposer un partenariat ciblé. Conserver les autres offres sans multiplier les nouveaux chantiers.
 Budget sortant : 0 CHF. Aucun achat test, service payant, abonnement, nouveau compte ou dépense publicitaire n'est prévu.
 
 ## 1. Point de départ : observé, prévu, inconnu
 
-| Sujet | État établi au 17 novembre | Suite ou preuve manquante |
+| Sujet | État établi et date de vérification | Suite ou preuve manquante |
 |---|---|---|
-| CelestBIP | T1 à T5 publiés au jalon `c8fa617` ; 7 articles ; site GitHub Pages public, offre standard gratuite | Contrôler le site après toute publication |
-| Qualité du site | 22 tests au jalon T1–T5, puis 23 après correction de la page de retour ; la restauration du jeu porte la suite locale à 29 | Conserver les preuves de tests et contrôler la publication après chaque évolution |
-| Gumroad | Accès vendeur vérifié en lecture seule ; 4 produits en ligne sur le compte attendu | Un compte correct ne prouve ni paiement ni versement |
-| Ventes et fonds | Compteurs de vente à zéro pour les 4 produits ; liste des versements vide | Aucun achat, paiement capturé ou versement démontré |
+| CelestBIP | T1 à T5 publiés le 17 novembre ; 7 articles ; site GitHub Pages public, offre standard gratuite | Contrôler le site après toute publication |
+| Qualité du site | 29 tests unitaires après restauration du jeu ; le 20 novembre, huit régressions clavier ont été reproduites puis corrigées, avec deux parcours de commandes préservés | Conserver les preuves et utiliser le contrôle navigateur facultatif de `docs/ARCHITECTURE.md` après publication |
+| Gumroad | Accès vendeur revérifié en lecture seule le 20 novembre ; 4 produits toujours en ligne aux tarifs annoncés | Un compte correct ne prouve ni paiement ni versement |
+| Ventes et fonds | Au 20 novembre, les compteurs cumulés de vente des 4 produits restent à zéro et la liste des versements est vide | Aucun achat, paiement capturé ou versement démontré |
 | Prestation | Supports et déroulés préparés | Aucune livraison réelle démontrée ; vérifier la capacité à tenir une séance |
 | Vérification du vendeur | Le compte consulté correspond aux produits | Validation d'identité, conditions et disponibilité des versements futurs non prouvées |
 | Atelier PME | Présentation à 900 CHF, bientôt disponible, sans lien de paiement | Ne pas le présenter comme réservable |

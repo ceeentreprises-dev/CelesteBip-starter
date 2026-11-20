@@ -2,7 +2,7 @@
 
 Version du 17 novembre 2026. Document de référence unique : stratégie, offres, opérations, finances, partenariats, infrastructure, conformité, calendrier. Les documents détaillés de `docs/` restent les sources ; ce dossier les rassemble et ajoute les procédures opérationnelles.
 
-Mise à jour opérationnelle : T1 à T5 sont publiées et le site compte sept articles. Le catalogue Gumroad a été consulté en lecture seule : quatre produits publiés, compteurs de vente à zéro et liste des versements vide. Les priorités des 30 prochains jours, les preuves manquantes et les responsabilités sont actualisées dans `docs/PLAN_ACTION.md`. Les scénarios financiers ci-dessous restent des hypothèses ; ni un lien ni une page de retour ne constituent une preuve de paiement ou de livraison.
+Mise à jour opérationnelle : T1 à T5 sont publiées et le site compte sept articles. Le catalogue Gumroad a été revérifié en lecture seule le 20 novembre : quatre produits publiés, compteurs cumulés de vente à zéro et liste des versements vide. Les priorités des 30 prochains jours, les preuves manquantes et les responsabilités sont actualisées dans `docs/PLAN_ACTION.md`. Les scénarios financiers ci-dessous restent des hypothèses ; ni un lien ni une page de retour ne constituent une preuve de paiement ou de livraison.
 
 ---
 
