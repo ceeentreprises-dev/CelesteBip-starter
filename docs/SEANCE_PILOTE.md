@@ -1,4 +1,6 @@
-# Séance pilote — Fiche d'animation de 90 minutes
+# Archive — Séance pilote, fiche d’animation historique
+
+> **Supersédé le 21 novembre 2026.** La fiche ci-dessous est une archive pédagogique, pas une séance confirmée, réservable ou à animer. Le propriétaire humain ne la répète pas, ne l'anime pas et n'en assure ni confirmation ni suivi par e-mail. Les exercices fictifs peuvent servir de matière à un futur contenu numérique, seulement après préparation et vérification ; leur existence ne prouve pas un produit livré. Les [règles permanentes d’exploitation](REGLES_EXPLOITATION.md) priment sur toute instruction contradictoire de cette archive.
 
 Support de la séance individuelle existante, préparé à partir de la section E1 de `docs/DOSSIER_COMPLET.md`. Ce document n'ajoute ni offre, ni produit, ni forfait.
 État : support prêt, répétition humaine et livraison réelle non établies.

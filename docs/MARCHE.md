@@ -1,5 +1,7 @@
 # Analyse de marché — formation IA en Suisse romande (17 nov. 2026)
 
+> **Recommandations historiques, révisées le 21 novembre 2026.** Cette recherche ne justifie aucune prestation humaine : les recommandations de séances, d’ateliers, d’entretiens ou de tests sur des prospects sont supersédées par les [règles permanentes d’exploitation](REGLES_EXPLOITATION.md). Les observations de marché ne prouvent ni demande réelle, ni vente, ni partenariat.
+
 ## Ce que disent les sources
 - **Demande réelle** : 48 % des PME suisses utilisent l'IA (étude Swiss Export 2026). 58 % de celles-ci constatent un gain de productivité.
 - **Frein n°1 = le savoir-faire** : 54 % citent le manque de compétences (Swiss Export). L'étude PME Digital Pulse 2026 indique que 57 % des PME citent au moins un obstacle et que seules 27 % osent utiliser l'IA à bon escient.

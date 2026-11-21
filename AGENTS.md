@@ -6,7 +6,7 @@ Ce fichier est lu automatiquement par les agents de code. Il décrit le projet, 
 
 - **CelestBIP** : initiative indépendante (Suisse romande, depuis novembre 2026) pour rendre l'IA accessible à toute personne, avec méthode et prudence.
 - **Site statique** généré par un seul script Python (`CELESTBIP_MASTER.py`), publié sur GitHub Pages : https://ceeentreprises-dev.github.io/CelesteBip-starter/
-- **Revenus** : séances (150 CHF), ateliers (20 CHF/place), adhésion (10 CHF/mois), soutien libre ; paiements via liens Gumroad. Sponsoring d'ateliers offerts.
+- **Modèle actuel** : activité 100 % numérique, sans prestation du propriétaire humain. Les offres historiques de séance, d'atelier et d'intervention sur site sont des incompatibilités à traiter, pas des prestations à lui attribuer. Voir `docs/REGLES_EXPLOITATION.md`.
 - **Langue** : tout le contenu public est en **français (fr-CH)**, ton clair, sobre, sans jargon.
 - **État marchand revérifié au 20 nov. 2026** : site en ligne, 7 articles et 4 produits Gumroad publiés. Leurs compteurs cumulés consultés indiquent 0 vente ; aucun versement ne figure dans la liste retournée. Cela ne valide pas un versement futur ni une prestation livrée. Aucun partenaire signé n'est annoncé.
 
@@ -19,6 +19,9 @@ Ce fichier est lu automatiquement par les agents de code. Il décrit le projet, 
 5. **Liens externes en liste blanche** : seuls les préfixes de `ALLOWED_LINK_PREFIXES` (paiement + GitHub du projet) et `SITE_URL` sont autorisés. Ajouter un nouveau domaine = modifier la liste ET justifier dans le commit.
 6. **Aucune dépendance obligatoire** pour `build`/`test` : bibliothèque standard uniquement (reportlab est optionnel).
 7. **Ne pas casser la publication** : tout push sur `main` ou sur la branche de travail déclenche `.github/workflows/pages.yml`, qui publie si les tests passent.
+
+8. **Exploitation 100 % numérique, règle permanente du 21 novembre 2026.** Le propriétaire humain ne fournit aucune prestation, ne passe aucun appel ni visioconférence, n'anime aucun atelier en direct ou en personne, ne se déplace dans aucune entreprise ni ailleurs pour l'activité et ne rédige ni n'envoie manuellement aucun e-mail. L'e-mail est le seul canal d'échange externe éventuel, pris en charge par les agents et outils effectivement connectés selon les autorisations applicables. Ne jamais planifier le propriétaire comme formateur, coach, prestataire, intervenant, commercial ou rédacteur. Une dépendance non automatisable est un blocage, jamais une tâche à lui transférer ou une réussite à inventer. Lire `docs/REGLES_EXPLOITATION.md` ; cette règle remplace les anciens plans humains sans modifier les permissions techniques ni donner une autorisation générale de messages, paiements ou dépenses.
+9. **Budget sortant nul.** 0 CHF / 0 USD ; aucun achat test, abonnement ni coût inconnu.
 
 ## 3. Commandes
 
@@ -58,11 +61,11 @@ Le convertisseur Markdown est volontairement minimal (`md_to_html`) : titres de 
 
 ## 6. Tâches et état d'avancement
 
-Chaque tâche liste ses critères d'acceptation. Les tâches marquées **[HUMAIN]** demandent une action du propriétaire et ne doivent pas être simulées.
+Les tâches T1 à T5 ci-dessous décrivent l'historique technique réalisé ; elles ne constituent pas des offres à promouvoir. Les anciens plans de prestation humaine sont supersédés par la règle du 21 novembre 2026. Les dépendances non automatisables restent des blocages, sans travail opérationnel attribué au propriétaire.
 
 T1 à T5 ont été réalisées, testées et publiées le 17 novembre 2026 sur la branche de travail. La suite opérationnelle et ses critères de validation sont dans `docs/PLAN_ACTION.md` ; ne pas recommencer les tâches terminées sans régression constatée.
 
-### T1 — Offre « Atelier PME » (900 CHF)
+### T1 — Historique : carte « Atelier PME » (900 CHF), incompatible à traiter
 - Ajouter une 4ᵉ entrée à `OFFERS` : « Atelier PME sur site (3 h, jusqu'à 12 personnes) », « 900 CHF », description factuelle, URL vide (« bientôt disponible ») tant que le lien de paiement n'existe pas.
 - Adapter le contrôle `cards_rendered` (nombre de cartes) et le test associé.
 - Critères : `TESTS : OK`, la carte s'affiche, aucun lien de paiement inventé.
@@ -89,16 +92,17 @@ T1 à T5 ont été réalisées, testées et publiées le 17 novembre 2026 sur la
 ### T6 — Version anglaise (plus tard)
 - Seulement après les premières ventes. Ne pas commencer sans demande explicite.
 
-### T7 — [HUMAIN] Actions réservées au propriétaire
-- Créer les paliers GitHub Sponsors (5 / 15 / 50 USD par mois).
-- Vérifier le compte de versement Gumroad et faire un achat test de 5 CHF.
-- Envoyer les messages de partenariat (`docs/PARTENARIATS.md`) et de prospection (`docs/KIT_DIFFUSION.md`) depuis ses propres comptes.
-- Décider de l'affichage éventuel de l'IBAN (déconseillé : révèle le titulaire).
-- Signaler chaque vente, atelier ou partenaire pour mise à jour du journal.
+### T7 — Blocages et vérifications, sans prestation humaine
+- Ne pas réaliser d'achat test : budget sortant nul.
+- Consigner les éventuelles exigences d'identité, de versement ou de consentement non automatisables ; ne pas les déclarer résolues et ne pas les transformer en mission opérationnelle du propriétaire.
+- Ne pas lui demander d'envoyer, personnaliser ou rédiger des messages, ni d'assurer des échanges, ventes, séances ou ateliers.
+- Les agents ne peuvent envoyer un e-mail qu'avec une instruction applicable et un outil réellement connecté ; un brouillon ou une consigne de mémoire ne constitue pas un envoi autorisé.
+- Rapprocher les offres historiques de la règle numérique avant toute promotion. Aucun produit marchand n'est modifié par cette mise à jour documentaire.
+- Mettre à jour le journal seulement avec des événements vérifiés, sans donnée personnelle ni secret.
 
 ## 7. Ce qu'un agent ne doit pas faire
 
-- Envoyer des messages, e-mails ou publications au nom du propriétaire.
+- Envoyer un e-mail sans instruction applicable et sans outil autorisé, ou utiliser un autre canal pour un échange commercial externe. Ne pas demander au propriétaire de rédiger ou d'envoyer à la place de l'agent.
 - Créer, modifier ou supprimer des produits de paiement, ou toucher à l'argent.
 - Publier une identité, un IBAN ou une donnée personnelle.
 - Ajouter des statistiques, traceurs, pop-ups ou newsletters.

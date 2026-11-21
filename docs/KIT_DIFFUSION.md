@@ -1,4 +1,6 @@
-# Kit de diffusion CelestBIP — textes prêts à copier
+# Archive — Kit de diffusion historique
+
+> **Supersédé le 21 novembre 2026.** Les textes ci-dessous sont archivés et ne sont pas prêts à copier, publier ou envoyer. Les offres de séance, d'atelier, d'échange de 15 minutes et les canaux sociaux ne constituent plus une consigne commerciale. Aucun message n'est à rédiger ou envoyer par le propriétaire humain. Les [règles permanentes d’exploitation](REGLES_EXPLOITATION.md) priment sur toute instruction contradictoire de cette archive.
 
 Site : https://ceeentreprises-dev.github.io/CelesteBip-starter/
 Règle : un message personnalisé vaut mieux que dix messages copiés. Jamais d'envoi de masse.

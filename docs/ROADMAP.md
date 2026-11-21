@@ -1,5 +1,7 @@
 # Feuille de route
 
+La [règle permanente du 21 novembre 2026](REGLES_EXPLOITATION.md) s’applique à toute évolution : 100 % numérique, aucune prestation ni rédaction d’e-mail du propriétaire humain. La priorité actuelle est décrite dans [PLAN_ACTION](PLAN_ACTION.md) ; les cases historiques ci-dessous ne prouvent pas l’état présent.
+
 Les éléments ci-dessous sont des intentions, pas des promesses de date. Chaque étape est mesurable et réversible.
 
 ## Étape 1 : fondations (fait)

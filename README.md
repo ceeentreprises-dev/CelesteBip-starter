@@ -15,37 +15,40 @@
 CelestBIP est une initiative indépendante, née en novembre 2026. Elle propose :
 - un **guide PDF gratuit** pour démarrer avec un assistant IA ;
 - des **articles** pratiques (vérifier une réponse, protéger ses données, bien formuler une demande…) ;
-- des **séances et ateliers** à tarif pilote, et des ateliers offerts financés par des partenaires.
+- une activité **100 % numérique**, sans prestation du propriétaire humain ; les offres historiques de séance, d’atelier et d’intervention sur site sont des incompatibilités à traiter, pas des services à lui attribuer.
 - un **jeu d'arcade gratuit**, [Carpe Rush](https://ceeentreprises-dev.github.io/CelesteBip-starter/carpe-rush/), avec progression sauvegardée dans le navigateur et monnaie virtuelle sans valeur réelle.
 
 Le dépôt contient tout le site et son générateur : on peut le lire en entier, le copier et le réutiliser (licence MIT).
 
-## Où nous en sommes (publications du 17 et contrôle marchand du 20 novembre 2026)
+La [règle permanente d’exploitation du 21 novembre 2026](docs/REGLES_EXPLOITATION.md) s’applique à tous les agents : aucun appel, aucune visioconférence, animation, visite, prestation ou rédaction/envoi manuel d’e-mail du propriétaire. L’e-mail est le seul canal d’échange externe éventuel, traité par les agents et outils autorisés. Une dépendance non automatisable est un blocage.
+
+## Où nous en sommes (consigne du 21, contrôle marchand du 20 novembre 2026)
 
 | | |
 |---|---|
 | Site en ligne, publication automatique | ✅ |
-| Catalogue Gumroad | 4 produits publiés ; 0 vente dans leurs compteurs revérifiés le 20 novembre ; versement futur non validé |
-| Atelier PME | 900 CHF, bientôt disponible, sans lien de paiement |
+| Catalogue Gumroad | Au 20 novembre : 4 produits publiés, compteurs à 0 vente ; offres de séance et d’atelier incompatibles avec la règle actuelle ; aucun produit modifié par cette consigne |
+| Atelier PME | Carte historique à 900 CHF, sans lien de paiement ; intervention sur site incompatible à traiter |
 | Articles publiés | 7 |
-| Partenaires signés | 0 — plan prêt, voir [PARTENARIATS](docs/PARTENARIATS.md) |
+| Partenaires signés | 0 — anciens modèles d’animation archivés, voir [PARTENARIATS](docs/PARTENARIATS.md) |
 
 Le détail daté est dans le [journal d'activité](docs/JOURNAL.md). Nous n'affichons que des faits vérifiables.
 
-Une publication ou une page de retour ne prouve pas un encaissement. La confirmation du prestataire, la réservation et la livraison restent des étapes distinctes.
+Une publication ou une page de retour ne prouve pas un encaissement. Une commande, un paiement, une livraison et un versement restent des états distincts. Aucune séance n’est confirmée par les supports préparés.
 
 ## Documentation
 
 | Document | Contenu |
 |---|---|
-| [BUSINESS_PLAN](docs/BUSINESS_PLAN.md) | Offres, prix, validation, sponsoring |
-| [PLAN_ACTION](docs/PLAN_ACTION.md) | État vérifié, suite sur 30 jours, vente, livraison et responsabilités |
-| [SEANCE_PILOTE](docs/SEANCE_PILOTE.md) | Déroulé de 90 minutes, trois exercices fictifs et récapitulatif participant |
+| [REGLES_EXPLOITATION](docs/REGLES_EXPLOITATION.md) | Consigne permanente 100 % numérique, rôles et incompatibilités |
+| [BUSINESS_PLAN](docs/BUSINESS_PLAN.md) | Archive du modèle historique avec prestations humaines, supersédée |
+| [PLAN_ACTION](docs/PLAN_ACTION.md) | Plan numérique actuel, preuves disponibles et blocages |
+| [SEANCE_PILOTE](docs/SEANCE_PILOTE.md) | Archive pédagogique ; aucune séance à animer ou confirmée |
 | [MARCHE](docs/MARCHE.md) | Analyse de marché, concurrence, alternatives |
-| [PARTENARIATS](docs/PARTENARIATS.md) | Modèles de collaboration, cibles, messages |
-| [KIT_DIFFUSION](docs/KIT_DIFFUSION.md) | Textes prêts à publier |
+| [PARTENARIATS](docs/PARTENARIATS.md) | Modèles historiques archivés, non prêts à envoyer |
+| [KIT_DIFFUSION](docs/KIT_DIFFUSION.md) | Textes historiques archivés, non prêts à publier ou envoyer |
 | [JOURNAL](docs/JOURNAL.md) | Historique d'activité |
-| [DOSSIER_COMPLET](docs/DOSSIER_COMPLET.md) | Tout le projet de A à Z, procédures comprises |
+| [DOSSIER_COMPLET](docs/DOSSIER_COMPLET.md) | Dossier historique, subordonné aux règles actuelles |
 | [AGENTS](AGENTS.md) | Instructions et tâches pour les agents de code (Codex, Claude Code) |
 | [ARCHITECTURE](docs/ARCHITECTURE.md) | Fonctionnement du code |
 
@@ -67,15 +70,15 @@ Visuels : `assets/` ; régénération avec `python tools/make_assets.py` (néces
 - **Aucun suivi** : pas de cookie, pas de statistiques, pas d'inscription.
 - **Paiements via des prestataires tiers** (liens externes) : aucune donnée bancaire n'est traitée ici. Les liens autorisés sont limités par les contrôles du générateur.
 - **Aucune promesse de résultat.** Pas une association d'utilité publique, pas une offre d'investissement.
-- **Transparence** : code ouvert, journal daté, bilans publiés après chaque atelier.
+- **Transparence** : code ouvert, journal daté et faits vérifiables ; aucune prestation ni livraison supposée.
 
 ## Contribuer et collaborer
 
-Corrections de texte, accessibilité et idées sont les bienvenues : voir [CONTRIBUTING](CONTRIBUTING.md). Pour un partenariat : [ouvrir une proposition](https://github.com/ceeentreprises-dev/CelesteBip-starter/issues/new?template=partenariat.md).
+Corrections de texte, accessibilité et idées sont les bienvenues : voir [CONTRIBUTING](CONTRIBUTING.md). Les anciennes propositions de partenariat avec animation sont archivées ; tout échange commercial externe éventuel suit la règle de l’e-mail uniquement, sans travail manuel du propriétaire.
 
 ## Soutenir
 
-[GitHub Sponsors](https://github.com/sponsors/ceeentreprises-dev) ou les offres du site. Les contributions financent le temps de travail, la maintenance et des places d'atelier offertes. Aucun avantage privé, aucun rendement.
+Le soutien volontaire est présenté via [GitHub Sponsors](https://github.com/sponsors/ceeentreprises-dev) et le lien de soutien existant. Les offres historiques incompatibles ne doivent pas être promues. Le soutien volontaire ne promet aucune prestation humaine, aucun avantage privé ni rendement.
 
 ## Licence
 

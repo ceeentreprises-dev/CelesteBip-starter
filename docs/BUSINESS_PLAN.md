@@ -1,5 +1,7 @@
 # CelestBIP — Business plan (version de lancement, 1 page)
 
+> **Supersédé le 21 novembre 2026.** Le business plan ci-dessous est conservé comme hypothèse historique de lancement. L'accompagnement humain, les entretiens, ateliers, messages manuels et scénarios de chiffre d'affaires associés ne sont plus un plan courant. Aucun modèle numérique de remplacement ni revenu n'est validé par cet archivage. Les [règles permanentes d’exploitation](REGLES_EXPLOITATION.md) priment sur toute instruction contradictoire de cette archive.
+
 **Proposition de valeur.** CelestBIP aide les particuliers, indépendants et petites structures de Suisse romande à utiliser l'IA de façon utile et prudente, grâce à un accompagnement humain court et concret, contrairement aux tutoriels génériques et aux formations longues.
 
 **Principe.** 0 CHF de dépense de lancement : site statique (Vercel, gratuit), paiements Stripe (frais seulement à la vente), guide PDF gratuit comme porte d'entrée. Les frais Stripe, impôts et obligations s'appliquent dès les premières ventes.

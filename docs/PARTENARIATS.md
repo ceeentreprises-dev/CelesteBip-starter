@@ -1,5 +1,7 @@
 # Partenariats — rendre l'IA accessible à toute personne
 
+> **Supersédé le 21 novembre 2026.** Les modèles, cibles et messages ci-dessous sont archivés. Les propositions d'animation, de salle, de rendez-vous et d'appel ne doivent pas être exécutées ni envoyées. Tout partenariat futur doit concerner un livrable numérique vérifié et un échange éventuel uniquement par e-mail géré par agents autorisés. Les [règles permanentes d’exploitation](REGLES_EXPLOITATION.md) priment sur toute instruction contradictoire de cette archive.
+
 **Mission** : promouvoir l'IA, la proposer et en donner l'accès à tout le monde, avec méthode et prudence.
 **Principe** : s'appuyer sur des structures qui ont déjà un public et un lieu. CelestBIP apporte le contenu, l'animation et les supports.
 
